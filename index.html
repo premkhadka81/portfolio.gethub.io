@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Premprakash Khadka - Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -12,85 +12,101 @@
   </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
+  <header class="bg-white shadow sticky top-0 z-50">
+    <nav class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-blue-600">Premprakash Khadka</h1>
+      <div class="space-x-4">
+        <button onclick="scrollToSection('about')" class="hover:underline">About</button>
+        <button onclick="scrollToSection('skills')" class="hover:underline">Skills</button>
+        <button onclick="scrollToSection('experience')" class="hover:underline">Experience</button>
+        <button onclick="scrollToSection('spatial')" class="hover:underline">Spatial Tools</button>
+        <button onclick="scrollToSection('contact')" class="hover:underline">Contact</button>
+      </div>
+    </nav>
+  </header>
 
-  <div class="max-w-5xl mx-auto p-6 space-y-10">
-
-    <!-- Hero Section -->
-    <section class="bg-white rounded-2xl shadow-lg p-6 text-center">
-      <img src="prem_profile.png" alt="Premprakash Khadka" class="w-40 h-40 object-cover rounded-full mx-auto mb-4 shadow-md border-4 border-gray-300">
-      <h1 class="text-3xl font-bold mb-2">Premprakash Khadka</h1>
-      <p class="text-gray-600">Surveyor | Geomatics Engineering Student</p>
-      <a href="Premprakash_Khadka_Resume.pdf" target="_blank" class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition">Download Resume</a>
+  <main class="max-w-6xl mx-auto px-6 py-10 space-y-16">
+    <!-- Hero -->
+    <section class="text-center">
+      <img src="prem_profile.png" alt="Premprakash Khadka" class="w-40 h-40 object-cover rounded-full mx-auto mb-4 border-4 border-gray-300 shadow">
+      <h2 class="text-3xl font-bold">Premprakash Khadka</h2>
+      <p class="text-gray-600">Surveyor | Geomatics Engineer</p>
+      <a href="Premprakash_Khadka_Resume.pdf" target="_blank" class="mt-4 inline-block bg-blue-600 text-white px-5 py-2 rounded-full shadow hover:bg-blue-700">Download Resume</a>
     </section>
 
-    <!-- About Section -->
-    <section class="bg-white rounded-2xl shadow-lg p-6">
-      <h2 class="text-2xl font-bold mb-2 text-gray-800">About Me</h2>
-      <p>
-        Namaste! I am <strong>Premprakash Khadka</strong>, a dedicated Surveyor working at the Survey Department of the Government of Nepal. Originally from Tribeni Municipality, Rukum West, I am passionate about land surveying and using geospatial data to support Nepal’s development. I completed my Diploma in Geomatics Engineering at the School of Geomatics and am currently pursuing a Bachelor's degree in Geomatics Engineering at Kathmandu University.
-      </p>
+    <!-- About -->
+    <section id="about" class="bg-white rounded-xl shadow p-6">
+      <h3 class="text-2xl font-bold mb-2">About Me</h3>
+      <p>Namaste! I am <strong>Premprakash Khadka</strong>, a dedicated Surveyor working at the Survey Department of the Government of Nepal. Originally from Tribeni Municipality, Rukum West, I am passionate about land surveying and using geospatial data to support Nepal’s development. I completed my Diploma in Geomatics Engineering at the School of Geomatics and am currently pursuing a Bachelor's degree in Geomatics Engineering at Kathmandu University.</p>
     </section>
 
-    <!-- Experience Section -->
-    <section class="bg-white rounded-2xl shadow-lg p-6">
-      <h2 class="text-2xl font-bold mb-2 text-gray-800">Professional Experience</h2>
-      <p>
-        Since 2019, I have been serving as a Surveyor at the Survey Department. I have worked on various <strong>cadastral mapping projects</strong> and conducted a project on <strong>"Soil Erosion in Dhading using RUSLE"</strong>, contributing to better environmental management and land administration.
-      </p>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="bg-white rounded-2xl shadow-lg p-6">
-      <h2 class="text-2xl font-bold mb-2 text-gray-800">Skills & Interests</h2>
+    <!-- Skills -->
+    <section id="skills" class="bg-white rounded-xl shadow p-6">
+      <h3 class="text-2xl font-bold mb-2">Skills</h3>
       <ul class="list-disc pl-5">
         <li>Cadastral Surveying and Mapping</li>
         <li>GIS and Remote Sensing</li>
         <li>Soil Erosion Modeling</li>
         <li>Land Administration</li>
         <li>Engineering Surveys</li>
+        <li>AutoCAD</li>
+        <li>Web Designing</li>
       </ul>
     </section>
 
-    <!-- Spatial Tools Section -->
-    <section class="bg-white rounded-2xl shadow-lg p-6">
-      <h2 class="text-2xl font-bold mb-4 text-gray-800">Spatial Tools & Applications</h2>
-      <div class="flex space-x-2 mb-4">
-        <button onclick="activateTool('buffer')" class="px-3 py-1 bg-blue-500 text-white rounded">Buffer</button>
-        <button onclick="activateTool('route')" class="px-3 py-1 bg-green-500 text-white rounded">Shortest Route</button>
-        <button onclick="activateTool('poi')" class="px-3 py-1 bg-orange-500 text-white rounded">Points of Interest</button>
+    <!-- Experience -->
+    <section id="experience" class="bg-white rounded-xl shadow p-6">
+      <h3 class="text-2xl font-bold mb-2">Experience</h3>
+      <ul class="space-y-2">
+        <li><strong>Government of Nepal (2019 - Present)</strong> - Surveyor in Cadastral Mapping & Land Administration</li>
+        <li><strong>Rolwaling Hydropower (2018 - 2019)</strong> - Surveyor: Preliminary Survey, Control Points, Detail Survey</li>
+        <li><strong>Apollo Construction (2017 - 2018)</strong> - Survey Engineer: Road Survey, Setting Out, Coordination</li>
+      </ul>
+    </section>
+
+    <!-- Spatial Tools -->
+    <section id="spatial" class="bg-white rounded-xl shadow p-6">
+      <h3 class="text-2xl font-bold mb-4">Spatial Tools</h3>
+      <div class="flex flex-wrap gap-4 mb-4">
+        <button onclick="activateTool('buffer')" class="px-4 py-2 bg-blue-500 text-white rounded">Buffer</button>
+        <button onclick="activateTool('route')" class="px-4 py-2 bg-green-500 text-white rounded">Shortest Route</button>
+        <button onclick="activateTool('poi')" class="px-4 py-2 bg-orange-500 text-white rounded">Points of Interest</button>
       </div>
       <div id="map"></div>
-      <p class="mt-4 text-gray-600">Select a tool above, then click on the map to interact.</p>
+      <p class="mt-4 text-gray-600">Click on the map after selecting a tool.</p>
     </section>
 
-    <!-- Contact Section -->
-    <section class="bg-white rounded-2xl shadow-lg p-6">
-      <h2 class="text-2xl font-bold mb-2 text-gray-800">Contact</h2>
-      <p>📞 <strong>Phone:</strong> 9869718749</p>
-      <p>✉️ <strong>Email:</strong> <a href="mailto:premkhadka205525@gmail.com" class="text-blue-600 underline">premkhadka205525@gmail.com</a></p>
-      <p>📍 <strong>Address:</strong> Tribeni Municipality, Rukum West, Nepal</p>
-      <p>💼 <strong>Facebook:</strong> <a href="https://www.facebook.com/prem.khadka.1460693" class="text-blue-600 underline" target="_blank">Prem Khadka</a></p>
-      <p>🔗 <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/premprakash-khadka-32b521345?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="text-blue-600 underline" target="_blank">premprakash-khadka</a></p>
-      <p>📸 <strong>Instagram:</strong> <a href="https://www.instagram.com/prem.khadka81?igsh=MW8ybmttMXZpbmx0NQ==" class="text-blue-600 underline" target="_blank">@prem.khadka81</a></p>
+    <!-- Contact -->
+    <section id="contact" class="bg-white rounded-xl shadow p-6">
+      <h3 class="text-2xl font-bold mb-2">Contact Me</h3>
+      <p><strong>Phone:</strong> 9869718749</p>
+      <p><strong>Email:</strong> <a href="mailto:premkhadka205525@gmail.com" class="text-blue-600 underline">premkhadka205525@gmail.com</a></p>
+      <p><strong>Address:</strong> Tribeni Municipality, Rukum West, Nepal</p>
+      <p><strong>Facebook:</strong> <a href="https://www.facebook.com/prem.khadka.1460693" class="text-blue-600 underline" target="_blank">Prem Khadka</a></p>
+      <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/premprakash-khadka-32b521345" class="text-blue-600 underline" target="_blank">premprakash-khadka</a></p>
+      <p><strong>Instagram:</strong> <a href="https://www.instagram.com/prem.khadka81" class="text-blue-600 underline" target="_blank">@prem.khadka81</a></p>
     </section>
-
-  </div>
+  </main>
 
   <script>
-    var map = L.map('map').setView([27.7172, 85.3240], 13);
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    const map = L.map('map').setView([27.7172, 85.3240], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '© OpenStreetMap'
     }).addTo(map);
 
-    var activeTool = null;
-    var tempLayers = [];
+    let activeTool = null;
+    let tempLayers = [];
 
     function activateTool(tool) {
       activeTool = tool;
       tempLayers.forEach(l => map.removeLayer(l));
       tempLayers = [];
-      alert("Tool activated: " + tool + ". Click on map to use it.");
+      alert("Tool activated: " + tool + ". Click on map.");
     }
 
     map.on('click', function(e) {
@@ -98,23 +114,27 @@
       tempLayers = [];
 
       if (activeTool === 'buffer') {
-        var circle = L.circle(e.latlng, {radius: 500, color: 'blue', fillOpacity: 0.2}).addTo(map);
+        let circle = L.circle(e.latlng, { radius: 500, color: 'blue', fillOpacity: 0.2 }).addTo(map);
+        circle.bindPopup("500 m Buffer").openPopup();
         tempLayers.push(circle);
       } else if (activeTool === 'route') {
-        var hospital = L.marker([27.7172, 85.3310]).addTo(map).bindPopup('Hospital');
-        var line = L.polyline([e.latlng, [27.7172, 85.3310]], {color: 'red'}).addTo(map);
+        let hospitalLatLng = [27.7172, 85.3310];
+        let hospital = L.marker(hospitalLatLng).addTo(map).bindPopup('Hospital').openPopup();
+        let line = L.polyline([e.latlng, hospitalLatLng], { color: 'red' }).addTo(map);
         tempLayers.push(line, hospital);
       } else if (activeTool === 'poi') {
-        var points = [
-          L.marker([27.7172, 85.3310]).bindPopup('Hospital'),
-          L.marker([27.7125, 85.3200]).bindPopup('School'),
-          L.marker([27.7150, 85.3280]).bindPopup('Hotel')
+        let offset = 0.005;
+        let points = [
+          L.marker([e.latlng.lat + offset, e.latlng.lng]).bindPopup('School'),
+          L.marker([e.latlng.lat - offset, e.latlng.lng]).bindPopup('Hotel'),
+          L.marker([e.latlng.lat, e.latlng.lng + offset]).bindPopup('Hospital')
         ];
-        points.forEach(p => p.addTo(map));
-        tempLayers.push(...points);
+        points.forEach(p => {
+          p.addTo(map).openPopup();
+          tempLayers.push(p);
+        });
       }
     });
   </script>
-
 </body>
 </html>
