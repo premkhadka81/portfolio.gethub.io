@@ -5,69 +5,97 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Premprakash Khadka - Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    #map { height: 500px; }
+  </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-  <div class="max-w-4xl mx-auto p-6">
-    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-      <!-- Profile Image -->
-      <div class="flex justify-center p-6">
+  <div class="max-w-4xl mx-auto p-6 space-y-10">
+
+    <!-- About Me Section -->
+    <section class="bg-white rounded-2xl shadow-lg p-6">
+      <div class="flex justify-center mb-4">
         <img src="prem_profile.png" alt="Premprakash Khadka" class="w-48 h-48 object-cover rounded-full shadow-md border-4 border-gray-300">
       </div>
-      <!-- Name and Title -->
-      <div class="text-center px-6 pb-6">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Premprakash Khadka</h1>
-        <p class="text-lg text-gray-600">Surveyor | Geomatics Engineering Student</p>
-      </div>
-      <!-- About Section -->
-      <div class="px-6 pb-6">
-        <h2 class="text-xl font-semibold mb-2 text-gray-800">About Me</h2>
-        <p class="mb-4">
-          Namaste! I am <strong>Premprakash Khadka</strong>, a dedicated Surveyor working at the Survey Department of the Government of Nepal. Originally from Tribeni Municipality, Rukum West, I am passionate about land surveying and using geospatial data to support Nepal’s development.
-        </p>
-        <p class="mb-4">
-          I completed my Diploma in Geomatics Engineering at the School of Geomatics and am currently pursuing a Bachelor's degree in Geomatics Engineering at Kathmandu University.
-        </p>
-      </div>
-      <!-- Experience Section -->
-      <div class="px-6 pb-6">
-        <h2 class="text-xl font-semibold mb-2 text-gray-800">Professional Experience</h2>
-        <p class="mb-4">
-          Since 2019, I have been serving as a Surveyor at the Survey Department. I have worked on various <strong>cadastral mapping projects</strong> and conducted a project on <strong>"Soil Erosion in Dhading using RUSLE"</strong>, contributing to better environmental management and land administration.
-        </p>
-      </div>
-      <!-- Skills Section -->
-      <div class="px-6 pb-6">
-        <h2 class="text-xl font-semibold mb-2 text-gray-800">Skills & Interests</h2>
-        <ul class="list-disc pl-5">
-          <li>Cadastral Surveying and Mapping</li>
-          <li>GIS and Remote Sensing</li>
-          <li>Soil Erosion Modeling</li>
-          <li>Land Administration</li>
-          <li>Engineering Surveys</li>
-        </ul>
-      </div>
-      <!-- Spatial Tools Section -->
-      <div class="px-6 pb-6">
-        <h2 class="text-xl font-semibold mb-2 text-gray-800">My Spatial Tools & Applications</h2>
-        <ul class="list-disc pl-5">
-          <li><strong>Buffer Analysis:</strong> Define service areas around schools, hospitals, or roads.</li>
-          <li><strong>Find Shortest Route:</strong> Calculate optimal path from home to nearby hospital, school, or hotel. (User selects home)</li>
-          <li><strong>Overlay Analysis:</strong> Combine layers to analyze suitability or zoning.</li>
-          <li><strong>Network Analysis:</strong> Evaluate road connectivity and travel paths.</li>
-          <li><strong>Land Use Change Detection:</strong> Monitor development or deforestation over time.</li>
-        </ul>
-      </div>
-      <!-- Contact Section -->
-      <div class="px-6 pb-10">
-        <h2 class="text-xl font-semibold mb-2 text-gray-800">Contact</h2>
-        <p>📞 <strong>Phone:</strong> 9869718749</p>
-        <p>✉️ <strong>Email:</strong> <a href="mailto:premkhadka205525@gmail.com" class="text-blue-600 underline">premkhadka205525@gmail.com</a></p>
-        <p>📍 <strong>Address:</strong> Tribeni Municipality, Rukum West, Nepal</p>
-        <p>💼 <strong>Facebook:</strong> <a href="https://www.facebook.com/prem.khadka.1460693" class="text-blue-600 underline" target="_blank">Prem Khadka</a></p>
-      </div>
-    </div>
+      <h2 class="text-2xl font-bold mb-2 text-gray-800 text-center">About Me</h2>
+      <p>
+        Namaste! I am <strong>Premprakash Khadka</strong>, a dedicated Surveyor working at the Survey Department of the Government of Nepal. Originally from Tribeni Municipality, Rukum West, I am passionate about land surveying and using geospatial data to support Nepal’s development. I completed my Diploma in Geomatics Engineering at the School of Geomatics and am currently pursuing a Bachelor's degree in Geomatics Engineering at Kathmandu University.
+      </p>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="bg-white rounded-2xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold mb-2 text-gray-800">Professional Experience</h2>
+      <p>
+        Since 2019, I have been serving as a Surveyor at the Survey Department. I have worked on various <strong>cadastral mapping projects</strong> and conducted a project on <strong>"Soil Erosion in Dhading using RUSLE"</strong>, contributing to better environmental management and land administration.
+      </p>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="bg-white rounded-2xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold mb-2 text-gray-800">Skills & Interests</h2>
+      <ul class="list-disc pl-5">
+        <li>Cadastral Surveying and Mapping</li>
+        <li>GIS and Remote Sensing</li>
+        <li>Soil Erosion Modeling</li>
+        <li>Land Administration</li>
+        <li>Engineering Surveys</li>
+      </ul>
+    </section>
+
+    <!-- Spatial Tools Section -->
+    <section class="bg-white rounded-2xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">Spatial Tools & Applications</h2>
+      <div id="map"></div>
+      <p class="mt-4 text-gray-600">Click on the map to set your home location. Predefined points for hospital, school, and hotel are shown. You can visualize routes and buffer examples.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="bg-white rounded-2xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold mb-2 text-gray-800">Contact</h2>
+      <p>📞 <strong>Phone:</strong> 9869718749</p>
+      <p>✉️ <strong>Email:</strong> <a href="mailto:premkhadka205525@gmail.com" class="text-blue-600 underline">premkhadka205525@gmail.com</a></p>
+      <p>📍 <strong>Address:</strong> Tribeni Municipality, Rukum West, Nepal</p>
+      <p>💼 <strong>Facebook:</strong> <a href="https://www.facebook.com/prem.khadka.1460693" class="text-blue-600 underline" target="_blank">Prem Khadka</a></p>
+      <p>🔗 <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/premprakash-khadka-32b521345?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" class="text-blue-600 underline" target="_blank">premprakash-khadka</a></p>
+      <p>📸 <strong>Instagram:</strong> <a href="https://www.instagram.com/prem.khadka81?igsh=MW8ybmttMXZpbmx0NQ==" class="text-blue-600 underline" target="_blank">@prem.khadka81</a></p>
+    </section>
+
   </div>
+
+  <script>
+    var map = L.map('map').setView([27.7172, 85.3240], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Predefined points
+    var hospital = L.marker([27.7172, 85.3310]).addTo(map).bindPopup('Hospital');
+    var school = L.marker([27.7125, 85.3200]).addTo(map).bindPopup('School');
+    var hotel = L.marker([27.7150, 85.3280]).addTo(map).bindPopup('Hotel');
+
+    var homeMarker = null;
+    var bufferCircle = null;
+    var routeLine = null;
+
+    map.on('click', function(e) {
+      if (homeMarker) {
+        map.removeLayer(homeMarker);
+        map.removeLayer(bufferCircle);
+        if (routeLine) map.removeLayer(routeLine);
+      }
+      homeMarker = L.marker(e.latlng).addTo(map).bindPopup("Your Home Location").openPopup();
+      bufferCircle = L.circle(e.latlng, {radius: 500, color: 'blue', fillOpacity: 0.2}).addTo(map);
+
+      var latlngs = [e.latlng, hospital.getLatLng()];
+      routeLine = L.polyline(latlngs, {color: 'red'}).addTo(map);
+    });
+  </script>
 
 </body>
 </html>
