@@ -2,250 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Prem Prakash Khadka Portfolio</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto:wght@300;400;700&display=swap');
-
-    body {
-      margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background: #eaf0f6;
-      color: #222;
-    }
-
-    header {
-      background: linear-gradient(135deg, #1c3a57, #2e5d86);
-      color: white;
-      padding: 2.5rem 1rem;
-      text-align: center;
-    }
-
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      margin-bottom: 0.3rem;
-    }
-
-    header p.tagline {
-      font-size: 1.2rem;
-      font-weight: 500;
-      font-style: italic;
-    }
-
-    .profile-pics {
-      display: flex;
-      justify-content: center;
-      margin-top: 1rem;
-    }
-
-    .profile-pics img {
-      height: 200px;
-      width: 200px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid #fff;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-      background: #264d73;
-      padding: 1rem;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1.1rem;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #f0c674;
-    }
-
-    section {
-      display: none;
-      padding: 2rem;
-      background-color: #ffffff;
-      margin: 1.5rem auto;
-      max-width: 900px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      font-size: 1.05rem;
-      line-height: 1.7;
-    }
-
-    section.active {
-      display: block;
-    }
-
-    h2 {
-      color: #2c3e50;
-    }
-
-    ul {
-      list-style-type: "📍 ";
-      padding-left: 1.2rem;
-    }
-
-    .arrow-nav {
-      text-align: center;
-      margin: 1rem;
-    }
-
-    .arrow-nav button {
-      margin: 0 0.6rem;
-      padding: 0.6rem 1.2rem;
-      font-size: 1.1rem;
-      background-color: #1c3a57;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      transition: background 0.3s ease;
-      cursor: pointer;
-    }
-
-    .arrow-nav button:hover {
-      background-color: #2e5d86;
-    }
-
-    .experience-photo {
-      display: flex;
-      justify-content: center;
-      margin-top: 1.2rem;
-    }
-
-    .experience-photo img {
-      width: 320px;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 5px 12px rgba(0,0,0,0.25);
-    }
-
-    .project-list {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .project-list li {
-      margin-bottom: 1.5rem;
-    }
-
-    .project-title {
-      font-weight: bold;
-      font-size: 1.15rem;
-      color: #1c3a57;
-    }
-
-    .contact-info p {
-      font-size: 1.05rem;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Premprakash Khadka - Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <header>
-    <h1>Prem Prakash Khadka</h1>
-    <p class="tagline">Geospatial Solutions Through Innovation and Precision</p>
-    <div class="profile-pics">
-      <img src="prem1.jpg" alt="Profile Photo">
+<body class="bg-gray-100 text-gray-800">
+
+  <div class="max-w-4xl mx-auto p-6">
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+      <!-- Profile Image -->
+      <div class="flex justify-center p-6">
+        <img src="prem_profile.png" alt="Premprakash Khadka" class="w-48 h-48 object-cover rounded-full shadow-md border-4 border-gray-300">
+      </div>
+      <!-- Name and Title -->
+      <div class="text-center px-6 pb-6">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Premprakash Khadka</h1>
+        <p class="text-lg text-gray-600">Surveyor | Geomatics Engineering Student</p>
+      </div>
+      <!-- About Section -->
+      <div class="px-6 pb-6">
+        <h2 class="text-xl font-semibold mb-2 text-gray-800">About Me</h2>
+        <p class="mb-4">
+          Namaste! I am <strong>Premprakash Khadka</strong>, a dedicated Surveyor working at the Survey Department of the Government of Nepal. Originally from Tribeni Municipality, Rukum West, I am passionate about land surveying and using geospatial data to support Nepal’s development.
+        </p>
+        <p class="mb-4">
+          I completed my Diploma in Geomatics Engineering at the School of Geomatics and am currently pursuing a Bachelor's degree in Geomatics Engineering at Kathmandu University.
+        </p>
+      </div>
+      <!-- Experience Section -->
+      <div class="px-6 pb-6">
+        <h2 class="text-xl font-semibold mb-2 text-gray-800">Professional Experience</h2>
+        <p class="mb-4">
+          Since 2019, I have been serving as a Surveyor at the Survey Department. I have worked on various <strong>cadastral mapping projects</strong> and conducted a project on <strong>"Soil Erosion in Dhading using RUSLE"</strong>, contributing to better environmental management and land administration.
+        </p>
+      </div>
+      <!-- Skills Section -->
+      <div class="px-6 pb-6">
+        <h2 class="text-xl font-semibold mb-2 text-gray-800">Skills & Interests</h2>
+        <ul class="list-disc pl-5">
+          <li>Cadastral Surveying and Mapping</li>
+          <li>GIS and Remote Sensing</li>
+          <li>Soil Erosion Modeling</li>
+          <li>Land Administration</li>
+          <li>Engineering Surveys</li>
+        </ul>
+      </div>
+      <!-- Spatial Tools Section -->
+      <div class="px-6 pb-6">
+        <h2 class="text-xl font-semibold mb-2 text-gray-800">My Spatial Tools & Applications</h2>
+        <ul class="list-disc pl-5">
+          <li><strong>Buffer Analysis:</strong> Define service areas around schools, hospitals, or roads.</li>
+          <li><strong>Find Shortest Route:</strong> Calculate optimal path from home to nearby hospital, school, or hotel. (User selects home)</li>
+          <li><strong>Overlay Analysis:</strong> Combine layers to analyze suitability or zoning.</li>
+          <li><strong>Network Analysis:</strong> Evaluate road connectivity and travel paths.</li>
+          <li><strong>Land Use Change Detection:</strong> Monitor development or deforestation over time.</li>
+        </ul>
+      </div>
+      <!-- Contact Section -->
+      <div class="px-6 pb-10">
+        <h2 class="text-xl font-semibold mb-2 text-gray-800">Contact</h2>
+        <p>📞 <strong>Phone:</strong> 9869718749</p>
+        <p>✉️ <strong>Email:</strong> <a href="mailto:premkhadka205525@gmail.com" class="text-blue-600 underline">premkhadka205525@gmail.com</a></p>
+        <p>📍 <strong>Address:</strong> Tribeni Municipality, Rukum West, Nepal</p>
+        <p>💼 <strong>Facebook:</strong> <a href="https://www.facebook.com/prem.khadka.1460693" class="text-blue-600 underline" target="_blank">Prem Khadka</a></p>
+      </div>
     </div>
-  </header>
-
-  <nav>
-    <a onclick="showSection('about')">About</a>
-    <a onclick="showSection('education')">Education</a>
-    <a onclick="showSection('experience')">Experience</a>
-    <a onclick="showSection('projects')">Projects</a>
-    <a onclick="showSection('contact')">Contact</a>
-  </nav>
-
-  <div class="arrow-nav">
-    <button onclick="previousSection()">⬅️</button>
-    <button onclick="nextSection()">➡️</button>
   </div>
 
-  <section id="about" class="active">
-    <h2>About Me</h2>
-    <p>
-      I am Prem Prakash Khadka, a Geomatics Engineer with 6 years of valuable government service. I specialize in cadastral mapping, GIS, remote sensing, and topographical surveys. I strive to transform spatial data into actionable insights for development and planning.
-    </p>
-    <p>
-      My goal is to contribute to sustainable development in Nepal through precise geospatial technologies and innovative mapping techniques.
-    </p>
-  </section>
-
-  <section id="education">
-    <h2>Education</h2>
-    <ul>
-      <li>🏫 Schooling: Himalaya Secondary School, Rukum</li>
-      <li>📐 Diploma in Geomatics Engineering – School of Geomatics</li>
-    </ul>
-  </section>
-
-  <section id="experience">
-    <h2>Experience</h2>
-    <ul>
-      <li>6 Years in Government Service</li>
-      <li>Cadastral and Topographic Survey</li>
-      <li>GIS Analysis and Spatial Database Creation</li>
-      <li>Remote Sensing and Satellite Image Interpretation</li>
-      <li>Field Data Collection using Total Station and DGPS</li>
-    </ul>
-    <div class="experience-photo">
-      <img src="prem2.jpeg" alt="Experience Photo">
-    </div>
-  </section>
-
-  <section id="projects">
-    <h2>Projects</h2>
-    <ul class="project-list">
-      <li>
-        <span class="project-title">1. Urban Land Parcel Mapping in Rukum</span>
-      </li>
-      <li>
-        <span class="project-title">2. Geodatabase for Municipal Infrastructure Management</span>
-      </li>
-      <li>
-        <span class="project-title">3. DEM Generation and Watershed Delineation (QGIS)</span>
-      </li>
-      <li>
-        <span class="project-title">4. Topographic Survey for Road Alignment Planning</span>
-      </li>
-    </ul>
-  </section>
-
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="contact-info">
-      <p>Email: <a href="mailto:premkhadka205525@gmail.com">premkhadka205525@gmail.com</a></p>
-      <p>Phone: <a href="tel:+9779869718749">9869718749</a></p>
-    </div>
-  </section>
-
-  <script>
-    const sections = ["about", "education", "experience", "projects", "contact"];
-    let currentSectionIndex = 0;
-
-    function showSection(id) {
-      document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
-      document.getElementById(id).classList.add("active");
-      currentSectionIndex = sections.indexOf(id);
-    }
-
-    function nextSection() {
-      currentSectionIndex = (currentSectionIndex + 1) % sections.length;
-      showSection(sections[currentSectionIndex]);
-    }
-
-    function previousSection() {
-      currentSectionIndex = (currentSectionIndex - 1 + sections.length) % sections.length;
-      showSection(sections[currentSectionIndex]);
-    }
-  </script>
 </body>
 </html>
