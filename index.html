@@ -120,7 +120,29 @@
       } else if (activeTool === 'route') {
         let hospitalLatLng = [27.7172, 85.3310];
         let hospital = L.marker(hospitalLatLng).addTo(map).bindPopup('Hospital').openPopup();
-        let line = L.polyline([e.latlng, hospitalLatLng], { color: 'red' }).addTo(map);
+        
+fetch('https://api.openrouteservice.org/v2/directions/foot-walking', {
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json, application/geo+json',
+    'Content-Type': 'application/json',
+    'Authorization': 'YOUR_ORS_API_KEY'
+  },
+  body: JSON.stringify({
+    coordinates: [
+      [e.latlng.lng, e.latlng.lat],
+      [85.3310, 27.7172]
+    ]
+  })
+})
+.then(response => response.json())
+.then(data => {
+  const coords = data.features[0].geometry.coordinates.map(c => [c[1], c[0]]);
+  const route = L.polyline(coords, { color: 'red' }).addTo(map);
+  tempLayers.push(route);
+})
+.catch(err => alert('Routing error: ' + err));
+
         tempLayers.push(line, hospital);
       } else if (activeTool === 'poi') {
         let offset = 0.005;
