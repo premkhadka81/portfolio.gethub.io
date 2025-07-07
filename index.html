@@ -13,14 +13,19 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
 
-  <div class="max-w-4xl mx-auto p-6 space-y-10">
+  <div class="max-w-5xl mx-auto p-6 space-y-10">
 
-    <!-- About Me Section -->
+    <!-- Hero Section -->
+    <section class="bg-white rounded-2xl shadow-lg p-6 text-center">
+      <img src="prem_profile.png" alt="Premprakash Khadka" class="w-40 h-40 object-cover rounded-full mx-auto mb-4 shadow-md border-4 border-gray-300">
+      <h1 class="text-3xl font-bold mb-2">Premprakash Khadka</h1>
+      <p class="text-gray-600">Surveyor | Geomatics Engineering Student</p>
+      <a href="Premprakash_Khadka_Resume.pdf" target="_blank" class="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-full shadow hover:bg-blue-700 transition">Download Resume</a>
+    </section>
+
+    <!-- About Section -->
     <section class="bg-white rounded-2xl shadow-lg p-6">
-      <div class="flex justify-center mb-4">
-        <img src="prem_profile.png" alt="Premprakash Khadka" class="w-48 h-48 object-cover rounded-full shadow-md border-4 border-gray-300">
-      </div>
-      <h2 class="text-2xl font-bold mb-2 text-gray-800 text-center">About Me</h2>
+      <h2 class="text-2xl font-bold mb-2 text-gray-800">About Me</h2>
       <p>
         Namaste! I am <strong>Premprakash Khadka</strong>, a dedicated Surveyor working at the Survey Department of the Government of Nepal. Originally from Tribeni Municipality, Rukum West, I am passionate about land surveying and using geospatial data to support Nepal’s development. I completed my Diploma in Geomatics Engineering at the School of Geomatics and am currently pursuing a Bachelor's degree in Geomatics Engineering at Kathmandu University.
       </p>
@@ -49,8 +54,13 @@
     <!-- Spatial Tools Section -->
     <section class="bg-white rounded-2xl shadow-lg p-6">
       <h2 class="text-2xl font-bold mb-4 text-gray-800">Spatial Tools & Applications</h2>
+      <div class="flex space-x-2 mb-4">
+        <button onclick="activateTool('buffer')" class="px-3 py-1 bg-blue-500 text-white rounded">Buffer</button>
+        <button onclick="activateTool('route')" class="px-3 py-1 bg-green-500 text-white rounded">Shortest Route</button>
+        <button onclick="activateTool('poi')" class="px-3 py-1 bg-orange-500 text-white rounded">Points of Interest</button>
+      </div>
       <div id="map"></div>
-      <p class="mt-4 text-gray-600">Click on the map to set your home location. Predefined points for hospital, school, and hotel are shown. You can visualize routes and buffer examples.</p>
+      <p class="mt-4 text-gray-600">Select a tool above, then click on the map to interact.</p>
     </section>
 
     <!-- Contact Section -->
@@ -68,32 +78,41 @@
 
   <script>
     var map = L.map('map').setView([27.7172, 85.3240], 13);
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '© OpenStreetMap'
     }).addTo(map);
 
-    // Predefined points
-    var hospital = L.marker([27.7172, 85.3310]).addTo(map).bindPopup('Hospital');
-    var school = L.marker([27.7125, 85.3200]).addTo(map).bindPopup('School');
-    var hotel = L.marker([27.7150, 85.3280]).addTo(map).bindPopup('Hotel');
+    var activeTool = null;
+    var tempLayers = [];
 
-    var homeMarker = null;
-    var bufferCircle = null;
-    var routeLine = null;
+    function activateTool(tool) {
+      activeTool = tool;
+      tempLayers.forEach(l => map.removeLayer(l));
+      tempLayers = [];
+      alert("Tool activated: " + tool + ". Click on map to use it.");
+    }
 
     map.on('click', function(e) {
-      if (homeMarker) {
-        map.removeLayer(homeMarker);
-        map.removeLayer(bufferCircle);
-        if (routeLine) map.removeLayer(routeLine);
-      }
-      homeMarker = L.marker(e.latlng).addTo(map).bindPopup("Your Home Location").openPopup();
-      bufferCircle = L.circle(e.latlng, {radius: 500, color: 'blue', fillOpacity: 0.2}).addTo(map);
+      tempLayers.forEach(l => map.removeLayer(l));
+      tempLayers = [];
 
-      var latlngs = [e.latlng, hospital.getLatLng()];
-      routeLine = L.polyline(latlngs, {color: 'red'}).addTo(map);
+      if (activeTool === 'buffer') {
+        var circle = L.circle(e.latlng, {radius: 500, color: 'blue', fillOpacity: 0.2}).addTo(map);
+        tempLayers.push(circle);
+      } else if (activeTool === 'route') {
+        var hospital = L.marker([27.7172, 85.3310]).addTo(map).bindPopup('Hospital');
+        var line = L.polyline([e.latlng, [27.7172, 85.3310]], {color: 'red'}).addTo(map);
+        tempLayers.push(line, hospital);
+      } else if (activeTool === 'poi') {
+        var points = [
+          L.marker([27.7172, 85.3310]).bindPopup('Hospital'),
+          L.marker([27.7125, 85.3200]).bindPopup('School'),
+          L.marker([27.7150, 85.3280]).bindPopup('Hotel')
+        ];
+        points.forEach(p => p.addTo(map));
+        tempLayers.push(...points);
+      }
     });
   </script>
 
