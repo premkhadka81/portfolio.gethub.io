@@ -1,14 +1,564 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Premprakash's Portfolio</title>
-
+    <title>Premprakash Khadka - Professional Surveyor</title>
+    
     <!-- CSS & Font Awesome -->
-    <link rel="stylesheet" href="ports.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.sticky {
+            padding: 15px 0;
+            background: rgba(255, 255, 255, 0.98);
+        }
+        
+        .max-width {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .navbar .max-width {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .navbar .logo a {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark-color);
+        }
+        
+        .navbar .logo a span {
+            color: var(--primary-color);
+        }
+        
+        .navbar .menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .navbar .menu li {
+            margin-left: 30px;
+        }
+        
+        .navbar .menu li a {
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .navbar .menu li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--dark-color);
+        }
+        
+        /* Home Section */
+        .home {
+            height: 100vh;
+            display: flex;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.1), rgba(231, 76, 60, 0.1)), url('survey-bg.jpg') no-repeat center center/cover;
+            align-items: center;
+            padding: 0 20px;
+            color: var(--dark-color);
+        }
+        
+        .home .home-content {
+            max-width: 600px;
+        }
+        
+        .home .text-1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .home .text-2 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+        }
+        
+        .home .text-3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .home .text-3 span {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+        
+        .title {
+            position: relative;
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: var(--secondary-color);
+        }
+        
+        .title::before {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+        
+        /* About Section */
+        .about {
+            background: #fff;
+        }
+        
+        .about .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .about .column {
+            width: calc(50% - 30px);
+        }
+        
+        .about .column.left img {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 50%;
+            border: 5px solid var(--primary-color);
+            object-fit: cover;
+        }
+        
+        .about .column.right .text {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        /* Skills Section */
+        .skills {
+            background: var(--light-color);
+        }
+        
+        .skills .skills-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .skills .column {
+            width: calc(50% - 30px);
+        }
+        
+        .skills .column.right .bars {
+            margin-bottom: 15px;
+        }
+        
+        .skills .column.right .info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .skills .column.right .line {
+            height: 8px;
+            width: 100%;
+            background: #ddd;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .skills .column.right .line::before {
+            content: "";
+            position: absolute;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background: var(--primary-color);
+            border-radius: 5px;
+        }
+        
+        .skills .column.right .html::before {
+            width: 90%;
+        }
+        
+        .skills .column.right .c::before {
+            width: 50%;
+        }
+        
+        .skills .column.right .cpp::before {
+            width: 50%;
+        }
+        
+        .skills .column.right .postgres-sql::before {
+            width: 70%;
+        }
+        
+        .skills .column.right .java::before {
+            width: 40%;
+        }
+        
+        .skills .column.right .css::before {
+            width: 50%;
+        }
+        
+        .skills .column.right .javascript::before {
+            width: 60%;
+        }
+        
+        .skills .column.right .indesign::before {
+            width: 70%;
+        }
+        
+        .skills .column.right .illustrator::before {
+            width: 60%;
+        }
+        
+        .skills .column.right .autocad::before {
+            width: 50%;
+        }
+        
+        .skills .column.right .gis::before {
+            width: 80%;
+        }
+        
+        /* Experience Section */
+        .experience {
+            background: #fff;
+        }
+        
+        .experience .experience-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .experience .card {
+            width: calc(33.33% - 20px);
+            background: var(--light-color);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .experience .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .experience .card .text {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        /* Contact Section */
+        .contact {
+            background: var(--light-color);
+        }
+        
+        .contact .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .contact .column {
+            width: calc(50% - 30px);
+        }
+        
+        .contact .column.left .text {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        .contact .row {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        
+        .contact .row i {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-right: 20px;
+        }
+        
+        .contact .info .head {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        .contact .info .sub-title {
+            color: var(--text-color);
+        }
+        
+        .contact .social a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 50%;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact .social a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .contact .fields {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .contact .field {
+            width: calc(50% - 15px);
+            height: 50px;
+            margin-bottom: 20px;
+        }
+        
+        .contact .field.textarea {
+            width: 100%;
+            height: 150px;
+        }
+        
+        .contact input,
+        .contact textarea {
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact input:focus,
+        .contact textarea:focus {
+            border-color: var(--primary-color);
+        }
+        
+        .contact textarea {
+            resize: none;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        footer span a {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        /* Scroll Up Button */
+        .scroll-up-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        
+        .scroll-up-btn.active {
+            bottom: 30px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .scroll-up-btn:hover {
+            background: var(--accent-color);
+            transform: translateY(-5px);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 991px) {
+            .max-width {
+                padding: 0 50px;
+            }
+            
+            .navbar .menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                background: #fff;
+                width: 100%;
+                height: calc(100vh - 80px);
+                padding: 40px 0;
+                flex-direction: column;
+                align-items: center;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .navbar .menu.show {
+                left: 0;
+            }
+            
+            .navbar .menu li {
+                margin: 15px 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .about .column,
+            .skills .column,
+            .contact .column {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            
+            .experience .card {
+                width: calc(50% - 15px);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .home .text-2 {
+                font-size: 42px;
+            }
+            
+            .home .text-3 {
+                font-size: 24px;
+            }
+            
+            .experience .card {
+                width: 100%;
+            }
+            
+            .contact .fields {
+                flex-direction: column;
+            }
+            
+            .contact .field {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .home .text-2 {
+                font-size: 36px;
+            }
+            
+            .home .text-3 {
+                font-size: 20px;
+            }
+            
+            .title {
+                font-size: 30px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -18,7 +568,7 @@
     </div>
 
     <!-- Navigation Bar -->
-    <div class="navbar">
+    <nav class="navbar">
         <div class="max-width">
             <div class="logo"><a href="#">P<span>.</span></a></div>
             <!-- Desktop Navigation -->
@@ -35,15 +585,16 @@
                 <i class="fas fa-bars"></i>
             </div>
         </div>
-    </div>
+    </nav>
 
     <!-- Home Section -->
     <section class="home" id="home">
-        <div class="max-width two-col">
+        <div class="max-width">
             <div class="home-content">
                 <div class="text-1">Hello, my name is</div>
                 <div class="text-2">Premprakash Khadka</div>
-                <div class="text-3">And I'm a Professional Surveyor.</div>
+                <div class="text-3">And I'm a <span>Professional Surveyor</span></div>
+                <a href="#contact" class="btn">Get In Touch</a>
             </div>
         </div>
     </section>
@@ -54,11 +605,12 @@
             <h2 class="title">About me</h2>
             <div class="about-content">
                 <div class="column left">
-                    <img src="prem_profile.png" alt="Profile photo"
-                        style="width:350px; height:350px; border-radius:100%" />
+                    <img src="prem_profile.png" alt="Premprakash Khadka">
                 </div>
                 <div class="column right">
+                    <div class="text">I'm Premprakash and I'm a <span>Surveyor</span></div>
                     <p>Namaste! I am Premprakash Khadka, a dedicated Surveyor at the Survey Department of Nepal. Originally from Tribeni Municipality, Rukum West, I am passionate about land surveying and using geospatial data to support Nepal's development. I completed my Diploma in Geomatics Engineering at the School of Geomatics and am currently pursuing a Bachelor's degree in Geomatics Engineering at Kathmandu University.</p>
+                    <a href="Premprakash_Khadka_Resume.pdf" class="btn">Download Resume</a>
                 </div>
             </div>
         </div>
@@ -71,59 +623,44 @@
             <div class="skills-content">
                 <div class="column left">
                     <div class="text">My professional skills & experiences.</div>
-                    <p>I work with both maps and design. I can use surveying tools, GIS software, and Postgres SQL to
-                        turn location data into clear maps. I code basic projects in HTML, CSS, JavaScript, C, and C++.
-                        On
-                        the creative side, I was a designer for the GES Magazine team and part of the Creative Affairs
-                        team
-                        for TEDx Kathmandu University 2024, where I showed my skills in Adobe Illustrator, InDesign, and
-                        layout work. I also use Excel and Word for reports. These mixed experiences let me explain
-                        technical ideas with simple, eye-catching visuals.</p>
+                    <p>I specialize in geomatics engineering with expertise in both technical surveying and digital tools. My skills range from field surveying techniques to advanced GIS software and programming. I'm proficient in transforming raw spatial data into actionable insights through careful analysis and visualization.</p>
                 </div>
                 <div class="column right">
                     <div class="bars">
-                        <div class="info"><span>HTML</span><span>90%</span></div>
-                        <div class="line html"></div>
-                    </div>
-                    <div class="bars">
-                        <div class="info"><span>C</span><span>50%</span></div>
-                        <div class="line c"></div>
-                    </div>
-                    <div class="bars">
-                        <div class="info"><span>C++</span><span>50%</span></div>
-                        <div class="line cpp"></div>
+                        <div class="info"><span>Arc GIS, QGIS</span><span>80%</span></div>
+                        <div class="line gis"></div>
                     </div>
                     <div class="bars">
                         <div class="info"><span>Postgres SQL</span><span>70%</span></div>
                         <div class="line postgres-sql"></div>
                     </div>
                     <div class="bars">
-                        <div class="info"><span>Java</span><span>40%</span></div>
-                        <div class="line java"></div>
+                        <div class="info"><span>AutoCAD</span><span>70%</span></div>
+                        <div class="line autocad"></div>
                     </div>
                     <div class="bars">
-                        <div class="info"><span>CSS</span><span>50%</span></div>
-                        <div class="line css"></div>
+                        <div class="info"><span>Adobe InDesign</span><span>70%</span></div>
+                        <div class="line indesign"></div>
+                    </div>
+                    <div class="bars">
+                        <div class="info"><span>HTML/CSS</span><span>70%</span></div>
+                        <div class="line html"></div>
                     </div>
                     <div class="bars">
                         <div class="info"><span>JavaScript</span><span>60%</span></div>
                         <div class="line javascript"></div>
                     </div>
                     <div class="bars">
-                        <div class="info"><span>Indesign</span><span>70%</span></div>
-                        <div class="line indesign"></div>
-                    </div>
-                    <div class="bars">
                         <div class="info"><span>Adobe Illustrator</span><span>60%</span></div>
                         <div class="line illustrator"></div>
                     </div>
                     <div class="bars">
-                        <div class="info"><span>AutoCad</span><span>50%</span></div>
-                        <div class="line autocad"></div>
+                        <div class="info"><span>C/C++</span><span>50%</span></div>
+                        <div class="line cpp"></div>
                     </div>
                     <div class="bars">
-                        <div class="info"><span>Arc GIS, QGIS</span><span>80%</span></div>
-                        <div class="line gis"></div>
+                        <div class="info"><span>Java</span><span>40%</span></div>
+                        <div class="line java"></div>
                     </div>
                 </div>
             </div>
@@ -137,20 +674,29 @@
             <div class="experience-content">
                 <div class="card">
                     <div class="box">
-                        <div class="text">Government of Nepal (2019 - Present)</div>
+                        <i class="fas fa-map-marked-alt"></i>
+                        <div class="text">Government of Nepal</div>
+                        <p><strong>2019 - Present</strong></p>
                         <p>Surveyor in Cadastral Mapping & Land Administration</p>
+                        <p>Conducted cadastral surveys, maintained land records, and implemented modern surveying technologies for accurate land administration.</p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="box">
-                        <div class="text">Rolwaling Hydropower (2018 - 2019)</div>
+                        <i class="fas fa-water"></i>
+                        <div class="text">Rolwaling Hydropower</div>
+                        <p><strong>2018 - 2019</strong></p>
                         <p>Surveyor: Preliminary Survey, Control Points, Detail Survey</p>
+                        <p>Performed topographic surveys for hydropower projects, established control networks, and conducted detailed site surveys.</p>
                     </div>
                 </div>
                 <div class="card">
                     <div class="box">
-                        <div class="text">Apollo Construction (2017 - 2018)</div>
+                        <i class="fas fa-road"></i>
+                        <div class="text">Apollo Construction</div>
+                        <p><strong>2017 - 2018</strong></p>
                         <p>Survey Engineer: Road Survey, Setting Out, Coordination</p>
+                        <p>Conducted road alignment surveys, construction layout, and coordinated with engineering teams for infrastructure projects.</p>
                     </div>
                 </div>
             </div>
@@ -163,36 +709,40 @@
             <h2 class="title">Contact me</h2>
             <div class="contact-content">
                 <div class="column left">
+                    <div class="text">Get in Touch</div>
+                    <p>Feel free to reach out for professional inquiries, collaboration opportunities, or any questions about my services. I'm always open to discussing new projects and ideas.</p>
                     <div class="icons">
-                        <div class="row"><i class="fas fa-user"></i>
+                        <div class="row">
+                            <i class="fas fa-user"></i>
                             <div class="info">
                                 <div class="head">Name</div>
                                 <div class="sub-title">Premprakash Khadka</div>
                             </div>
                         </div>
-                        <div class="row"><i class="fas fa-phone"></i>
-                            <div class="info">
-                                <div class="head">Phone</div>
-                                <div class="sub-title">9869718749</div>
-                            </div>
-                        </div>
-                        <div class="row"><i class="fas fa-map-marker-alt"></i>
+                        <div class="row">
+                            <i class="fas fa-map-marker-alt"></i>
                             <div class="info">
                                 <div class="head">Address</div>
-                                <div class="sub-title">Dhulikhel, Kavrepalanchowk</div>
+                                <div class="sub-title">Dhulikhel, Kavrepalanchowk, Nepal</div>
                             </div>
                         </div>
-                        <div class="row"><i class="fas fa-envelope"></i>
+                        <div class="row">
+                            <i class="fas fa-envelope"></i>
                             <div class="info">
                                 <div class="head">Email</div>
                                 <div class="sub-title">premkhadka205525@gmail.com</div>
                             </div>
                         </div>
+                        <div class="row">
+                            <i class="fas fa-phone"></i>
+                            <div class="info">
+                                <div class="head">Phone</div>
+                                <div class="sub-title">+977-9869718749</div>
+                            </div>
+                        </div>
                         <div class="row social">
-                            <a href="https://www.facebook.com/prem.khadka.1460693" target="_blank"><i
-                                    class="fab fa-facebook-f"></i></a>
-                            <a href="https://www.linkedin.com/in/premprakash-khadka-32b521345" target="_blank"><i
-                                    class="fab fa-linkedin-in"></i></a>
+                            <a href="https://www.facebook.com/prem.khadka.1460693" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.linkedin.com/in/premprakash-khadka-32b521345" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>
@@ -200,12 +750,22 @@
                     <div class="text">Message me</div>
                     <form name="submit-to-google-sheet">
                         <div class="fields">
-                            <div class="field name"><input type="text" name="name" placeholder="Name" required></div>
-                            <div class="field email"><input type="text" name="email" placeholder="Email" required></div>
+                            <div class="field name">
+                                <input type="text" name="name" placeholder="Name" required>
+                            </div>
+                            <div class="field email">
+                                <input type="email" name="email" placeholder="Email" required>
+                            </div>
                         </div>
-                        <div class="field textarea"><textarea cols="30" rows="10" name="message" placeholder="Message"
-                                required></textarea></div>
-                        <div class="button"><button type="submit">Submit</button></div>
+                        <div class="field">
+                            <input type="text" name="subject" placeholder="Subject">
+                        </div>
+                        <div class="field textarea">
+                            <textarea name="message" placeholder="Your message..." required></textarea>
+                        </div>
+                        <div class="button">
+                            <button type="submit">Send Message</button>
+                        </div>
                     </form>
                     <span id="msg"></span>
                 </div>
@@ -215,49 +775,76 @@
 
     <!-- Footer -->
     <footer>
-        <span>Created by <a href="#">Premprakash Khadka</a> | <span class="far fa-copyright"></span> 2025 All rights
-            reserved.</span>
+        <span>Created by <a href="#">Premprakash Khadka</a> | <span class="far fa-copyright"></span> 2024 All rights reserved.</span>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Google Sheet Submission (unchanged)
+    <script>
+        // Sticky Navigation
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            navbar.classList.toggle('sticky', window.scrollY > 0);
+            
+            // Scroll Up Button Show/Hide
+            const scrollUpBtn = document.querySelector('.scroll-up-btn');
+            scrollUpBtn.classList.toggle('active', window.scrollY > 500);
+        });
+        
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Scroll Up Button Functionality
+        document.querySelector('.scroll-up-btn').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Mobile Menu Toggle
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuToggle = document.querySelector(".menu-toggle");
+            const menu = document.querySelector(".menu");
+            
+            menuToggle.addEventListener("click", function() {
+                menu.classList.toggle("show");
+                menuToggle.querySelector("i").classList.toggle("fa-times");
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll(".menu a").forEach(link => {
+                link.addEventListener("click", () => {
+                    menu.classList.remove("show");
+                    menuToggle.querySelector("i").classList.remove("fa-times");
+                });
+            });
+        });
+        
+        // Form Submission
         const scriptURL = 'https://script.google.com/macros/s/AKfycbxmAV08hOmFCFsKGSsgZQ5hw1ZZO3ep46Fd1lBjD0meycdgZkCl_TzBuG0sEzjeUYRPTw/exec';
         const form = document.forms['submit-to-google-sheet'];
         const msg = document.getElementById("msg");
-
+        
         form.addEventListener('submit', e => {
             e.preventDefault();
             fetch(scriptURL, { method: 'POST', body: new FormData(form) })
                 .then(response => {
-                    msg.innerHTML = "Message sent";
+                    msg.innerHTML = "Message sent successfully!";
                     setTimeout(() => msg.innerHTML = "", 5000);
                     form.reset();
                 })
-                .catch(error => console.error('Error!', error.message));
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const menuToggle = document.querySelector(".menu-toggle");
-            const menu = document.querySelector(".menu");
-            const icon = menuToggle.querySelector("i");
-
-            menuToggle.addEventListener("click", function () {
-                menu.classList.toggle("show");
-                icon.classList.toggle("fa-bars");
-                icon.classList.toggle("fa-times");
-            });
-
-            // Optional: close menu when a link is clicked
-            document.querySelectorAll(".menu a").forEach(link => {
-                link.addEventListener("click", () => {
-                    menu.classList.remove("show");
-                    icon.classList.add("fa-bars");
-                    icon.classList.remove("fa-times");
+                .catch(error => {
+                    msg.innerHTML = "Error sending message. Please try again.";
+                    console.error('Error!', error.message);
                 });
-            });
         });
     </script>
-
 </body>
 
 </html>
