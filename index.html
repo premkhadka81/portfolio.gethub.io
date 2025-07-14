@@ -1,96 +1,263 @@
-
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Premprakash Khadka - Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://kit.fontawesome.com/a2e0c6a5e0.js" crossorigin="anonymous"></script>
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-  </style>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Premprakash's Portfolio</title>
+
+    <!-- CSS & Font Awesome -->
+    <link rel="stylesheet" href="ports.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 </head>
-<body class="bg-white text-gray-800">
 
-  <!-- Navbar -->
-  <header class="fixed w-full top-0 bg-transparent z-50">
-    <nav class="max-w-6xl mx-auto flex justify-between items-center px-6 py-4">
-      <h1 class="text-xl font-bold text-blue-600">Prem</h1>
-      <div class="space-x-6 hidden md:flex">
-        <a href="#about" class="hover:text-blue-600">About</a>
-        <a href="#skills" class="hover:text-blue-600">Skills</a>
-        <a href="#experience" class="hover:text-blue-600">Experience</a>
-        <a href="#contact" class="hover:text-blue-600">Contact</a>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Hero -->
-  <section class="h-screen flex flex-col justify-center items-center text-center px-4">
-    <img src="prem_profile.png" alt="Premprakash Khadka" class="w-36 h-36 rounded-full object-cover border-4 border-gray-300 shadow-lg mb-6">
-    <h2 class="text-4xl font-bold mb-2">Premprakash Khadka</h2>
-    <p class="text-gray-600 text-lg mb-4">Surveyor | Geomatics Engineer</p>
-    <a href="Premprakash_Khadka_Resume.pdf" target="_blank" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Download Resume</a>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="max-w-3xl mx-auto px-6 py-16 text-center space-y-4">
-    <h3 class="text-3xl font-semibold">About Me</h3>
-    <p>Namaste! I am <strong>Premprakash Khadka</strong>, a dedicated Surveyor at the Survey Department of Nepal. Originally from Tribeni Municipality, Rukum West, I am passionate about land surveying and using geospatial data to support Nepal’s development. I completed my Diploma in Geomatics Engineering at the School of Geomatics and am currently pursuing a Bachelor's degree in Geomatics Engineering at Kathmandu University.</p>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills" class="max-w-3xl mx-auto px-6 py-16 text-center space-y-4 bg-gray-50">
-    <h3 class="text-3xl font-semibold">Skills</h3>
-    <div class="flex flex-wrap justify-center gap-4 text-gray-700">
-      <span>Cadastral Surveying</span>
-      <span>GIS & Remote Sensing</span>
-      <span>Soil Erosion Modeling</span>
-      <span>Land Administration</span>
-      <span>Engineering Surveys</span>
-      <span>AutoCAD</span>
-      <span>Web Designing</span>
+<body>
+    <!-- Scroll Up Button -->
+    <div class="scroll-up-btn">
+        <i class="fas fa-angle-up"></i>
     </div>
-  </section>
 
-  <!-- Experience -->
-  <section id="experience" class="max-w-3xl mx-auto px-6 py-16 text-center space-y-4">
-    <h3 class="text-3xl font-semibold">Experience</h3>
-    <div class="space-y-6">
-      <div>
-        <h4 class="font-bold">Government of Nepal (2019 - Present)</h4>
-        <p>Surveyor in Cadastral Mapping & Land Administration</p>
-      </div>
-      <div>
-        <h4 class="font-bold">Rolwaling Hydropower (2018 - 2019)</h4>
-        <p>Surveyor: Preliminary Survey, Control Points, Detail Survey</p>
-      </div>
-      <div>
-        <h4 class="font-bold">Apollo Construction (2017 - 2018)</h4>
-        <p>Survey Engineer: Road Survey, Setting Out, Coordination</p>
-      </div>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <div class="max-width">
+            <div class="logo"><a href="#">P<span>.</span></a></div>
+            <!-- Desktop Navigation -->
+            <ul class="menu">
+                <li><a href="#home" class="menu-btn">Home</a></li>
+                <li><a href="#about" class="menu-btn">About</a></li>
+                <li><a href="#skills" class="menu-btn">Skills</a></li>
+                <li><a href="#experience" class="menu-btn">Experience</a></li>
+                <li><a href="#contact" class="menu-btn">Contact</a></li>
+                <li><a class="btn" href="Premprakash_Khadka_Resume.pdf">My Resume</a></li>
+                <li><a href="#contact" class="menu-btn">Hire Me</a></li>
+            </ul>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
     </div>
-  </section>
 
-  <!-- Contact -->
-  <section id="contact" class="max-w-3xl mx-auto px-6 py-16 text-center space-y-4 bg-gray-50">
-    <h3 class="text-3xl font-semibold">Contact Me</h3>
-    <p><strong>Phone:</strong> 9869718749</p>
-    <p><strong>Email:</strong> <a href="mailto:premkhadka205525@gmail.com" class="text-blue-600 underline">premkhadka205525@gmail.com</a></p>
-    <p><strong>Address:</strong> Tribeni Municipality, Rukum West, Nepal</p>
-    <div class="flex justify-center space-x-6 text-2xl mt-4">
-      <a href="https://www.facebook.com/prem.khadka.1460693" target="_blank" class="text-gray-500 hover:text-blue-600"><i class="fab fa-facebook"></i></a>
-      <a href="https://www.linkedin.com/in/premprakash-khadka-32b521345" target="_blank" class="text-gray-500 hover:text-blue-600"><i class="fab fa-linkedin"></i></a>
-      <a href="https://www.instagram.com/prem.khadka81" target="_blank" class="text-gray-500 hover:text-pink-500"><i class="fab fa-instagram"></i></a>
-    </div>
-  </section>
+    <!-- Home Section -->
+    <section class="home" id="home">
+        <div class="max-width two-col">
+            <div class="home-content">
+                <div class="text-1">Hello, my name is</div>
+                <div class="text-2">Premprakash Khadka</div>
+                <div class="text-3">And I'm a Professional Surveyor.</div>
+            </div>
+        </div>
+    </section>
 
-  <footer class="text-center py-6 text-gray-500">
-    &copy; 2025 Premprakash Khadka. All rights reserved.
-  </footer>
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="max-width">
+            <h2 class="title">About me</h2>
+            <div class="about-content">
+                <div class="column left">
+                    <img src="prem_profile.png" alt="Profile photo"
+                        style="width:350px; height:350px; border-radius:100%" />
+                </div>
+                <div class="column right">
+                    <p>Namaste! I am Premprakash Khadka, a dedicated Surveyor at the Survey Department of Nepal. Originally from Tribeni Municipality, Rukum West, I am passionate about land surveying and using geospatial data to support Nepal's development. I completed my Diploma in Geomatics Engineering at the School of Geomatics and am currently pursuing a Bachelor's degree in Geomatics Engineering at Kathmandu University.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="max-width">
+            <h2 class="title">My skills</h2>
+            <div class="skills-content">
+                <div class="column left">
+                    <div class="text">My professional skills & experiences.</div>
+                    <p>I work with both maps and design. I can use surveying tools, GIS software, and Postgres SQL to
+                        turn location data into clear maps. I code basic projects in HTML, CSS, JavaScript, C, and C++.
+                        On
+                        the creative side, I was a designer for the GES Magazine team and part of the Creative Affairs
+                        team
+                        for TEDx Kathmandu University 2024, where I showed my skills in Adobe Illustrator, InDesign, and
+                        layout work. I also use Excel and Word for reports. These mixed experiences let me explain
+                        technical ideas with simple, eye-catching visuals.</p>
+                </div>
+                <div class="column right">
+                    <div class="bars">
+                        <div class="info"><span>HTML</span><span>90%</span></div>
+                        <div class="line html"></div>
+                    </div>
+                    <div class="bars">
+                        <div class="info"><span>C</span><span>50%</span></div>
+                        <div class="line c"></div>
+                    </div>
+                    <div class="bars">
+                        <div class="info"><span>C++</span><span>50%</span></div>
+                        <div class="line cpp"></div>
+                    </div>
+                    <div class="bars">
+                        <div class="info"><span>Postgres SQL</span><span>70%</span></div>
+                        <div class="line postgres-sql"></div>
+                    </div>
+                    <div class="bars">
+                        <div class="info"><span>Java</span><span>40%</span></div>
+                        <div class="line java"></div>
+                    </div>
+                    <div class="bars">
+                        <div class="info"><span>CSS</span><span>50%</span></div>
+                        <div class="line css"></div>
+                    </div>
+                    <div class="bars">
+                        <div class="info"><span>JavaScript</span><span>60%</span></div>
+                        <div class="line javascript"></div>
+                    </div>
+                    <div class="bars">
+                        <div class="info"><span>Indesign</span><span>70%</span></div>
+                        <div class="line indesign"></div>
+                    </div>
+                    <div class="bars">
+                        <div class="info"><span>Adobe Illustrator</span><span>60%</span></div>
+                        <div class="line illustrator"></div>
+                    </div>
+                    <div class="bars">
+                        <div class="info"><span>AutoCad</span><span>50%</span></div>
+                        <div class="line autocad"></div>
+                    </div>
+                    <div class="bars">
+                        <div class="info"><span>Arc GIS, QGIS</span><span>80%</span></div>
+                        <div class="line gis"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="max-width">
+            <h2 class="title">My Experience</h2>
+            <div class="experience-content">
+                <div class="card">
+                    <div class="box">
+                        <div class="text">Government of Nepal (2019 - Present)</div>
+                        <p>Surveyor in Cadastral Mapping & Land Administration</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="box">
+                        <div class="text">Rolwaling Hydropower (2018 - 2019)</div>
+                        <p>Surveyor: Preliminary Survey, Control Points, Detail Survey</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="box">
+                        <div class="text">Apollo Construction (2017 - 2018)</div>
+                        <p>Survey Engineer: Road Survey, Setting Out, Coordination</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="max-width">
+            <h2 class="title">Contact me</h2>
+            <div class="contact-content">
+                <div class="column left">
+                    <div class="icons">
+                        <div class="row"><i class="fas fa-user"></i>
+                            <div class="info">
+                                <div class="head">Name</div>
+                                <div class="sub-title">Premprakash Khadka</div>
+                            </div>
+                        </div>
+                        <div class="row"><i class="fas fa-phone"></i>
+                            <div class="info">
+                                <div class="head">Phone</div>
+                                <div class="sub-title">9869718749</div>
+                            </div>
+                        </div>
+                        <div class="row"><i class="fas fa-map-marker-alt"></i>
+                            <div class="info">
+                                <div class="head">Address</div>
+                                <div class="sub-title">Dhulikhel, Kavrepalanchowk</div>
+                            </div>
+                        </div>
+                        <div class="row"><i class="fas fa-envelope"></i>
+                            <div class="info">
+                                <div class="head">Email</div>
+                                <div class="sub-title">premkhadka205525@gmail.com</div>
+                            </div>
+                        </div>
+                        <div class="row social">
+                            <a href="https://www.facebook.com/prem.khadka.1460693" target="_blank"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.linkedin.com/in/premprakash-khadka-32b521345" target="_blank"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="column right">
+                    <div class="text">Message me</div>
+                    <form name="submit-to-google-sheet">
+                        <div class="fields">
+                            <div class="field name"><input type="text" name="name" placeholder="Name" required></div>
+                            <div class="field email"><input type="text" name="email" placeholder="Email" required></div>
+                        </div>
+                        <div class="field textarea"><textarea cols="30" rows="10" name="message" placeholder="Message"
+                                required></textarea></div>
+                        <div class="button"><button type="submit">Submit</button></div>
+                    </form>
+                    <span id="msg"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <span>Created by <a href="#">Premprakash Khadka</a> | <span class="far fa-copyright"></span> 2025 All rights
+            reserved.</span>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Google Sheet Submission (unchanged)
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxmAV08hOmFCFsKGSsgZQ5hw1ZZO3ep46Fd1lBjD0meycdgZkCl_TzBuG0sEzjeUYRPTw/exec';
+        const form = document.forms['submit-to-google-sheet'];
+        const msg = document.getElementById("msg");
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+                .then(response => {
+                    msg.innerHTML = "Message sent";
+                    setTimeout(() => msg.innerHTML = "", 5000);
+                    form.reset();
+                })
+                .catch(error => console.error('Error!', error.message));
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const menuToggle = document.querySelector(".menu-toggle");
+            const menu = document.querySelector(".menu");
+            const icon = menuToggle.querySelector("i");
+
+            menuToggle.addEventListener("click", function () {
+                menu.classList.toggle("show");
+                icon.classList.toggle("fa-bars");
+                icon.classList.toggle("fa-times");
+            });
+
+            // Optional: close menu when a link is clicked
+            document.querySelectorAll(".menu a").forEach(link => {
+                link.addEventListener("click", () => {
+                    menu.classList.remove("show");
+                    icon.classList.add("fa-bars");
+                    icon.classList.remove("fa-times");
+                });
+            });
+        });
+    </script>
 
 </body>
+
 </html>
