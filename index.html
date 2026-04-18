@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prem Khadka | Geomatics Engineer</title>
+<title>Er.Prem Prakash Khadka | Geomatics Engineer</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -28,15 +28,39 @@ nav ul{display:flex;list-style:none;gap:25px}
 nav a{text-decoration:none;color:var(--primary);font-weight:500; transition: color 0.3s;}
 nav a:hover {color: var(--accent);}
 
-.hero{height:100vh;display:flex;align-items:center;text-align:center; background: linear-gradient(rgba(248, 250, 252, 0.9), rgba(248, 250, 252, 0.9)), url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;}
-.hero-content {max-width: 800px; margin: auto;}
-.hero h1{font-size:52px;margin-bottom:15px; color: var(--primary);}
-.hero h2 {font-size: 24px; font-weight: 400; margin-bottom: 10px; color: var(--gray);}
-.hero p{margin-bottom:30px; font-size: 18px; color: var(--gray);}
+/* --- Hero & Cover Photo Section --- */
+.hero{
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    /* REPLACE THE URL BELOW WITH YOUR COVER PHOTO */
+    background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), url('cover.png') center/cover; 
+    margin-top: 60px; /* Offset for fixed nav */
+}
+.hero-content {max-width: 800px; margin: auto; color: #fff;}
+
+/* Profile Photo Styling */
+.profile-img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
+}
+
+.hero h1{font-size:52px;margin-bottom:15px; color: #fff;}
+.hero h2 {font-size: 24px; font-weight: 400; margin-bottom: 10px; color: #cbd5e1;}
+.hero p{margin-bottom:30px; font-size: 18px; color: #e2e8f0;}
 
 .btn{padding:12px 28px;background:var(--accent);color:#fff;border:none;border-radius:5px;text-decoration:none;margin:5px;display:inline-block; font-weight: 500; transition: 0.3s;}
 .btn:hover{background: #1d4ed8; transform: translateY(-2px);}
 .btn-outline{border:2px solid var(--accent);background:transparent;color:var(--accent)}
+.btn-outline-hero {border:2px solid #fff;background:transparent;color:#fff;}
+.btn-outline-hero:hover {background:#fff; color:var(--primary);}
 .btn-outline:hover{background:var(--accent);color:#fff;}
 
 section{padding:100px 0}
@@ -73,7 +97,16 @@ section{padding:100px 0}
 .skills .progress{height:10px;background:#e2e8f0;border-radius:5px; overflow: hidden;}
 .skills .progress div{height:100%;background:var(--accent); border-radius: 5px;}
 
-.contact-form {background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 600px; margin: auto;}
+/* --- Contact Section Styles --- */
+.contact-wrapper {display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start;}
+.contact-info {flex: 1; min-width: 300px; background: var(--primary); color: #fff; padding: 40px; border-radius: 12px;}
+.contact-info h3 {font-size: 24px; margin-bottom: 20px;}
+.contact-info p {margin-bottom: 15px; font-size: 16px; display: flex; align-items: center; gap: 15px;}
+.contact-info i {color: var(--accent); font-size: 20px;}
+.contact-info a {color: #fff; text-decoration: none;}
+.contact-info a:hover {text-decoration: underline;}
+
+.contact-form {flex: 2; min-width: 300px; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0;}
 .contact-form input,.contact-form textarea{width:100%;padding:15px;margin-bottom:20px;border:1px solid #cbd5e1;border-radius:8px; font-size: 16px;}
 .contact-form textarea {height: 150px; resize: vertical;}
 
@@ -84,6 +117,7 @@ footer p {margin: 0;}
     nav ul {display: none;} /* Mobile menu would go here */
     .about-grid {flex-direction: column;}
     .hero h1 {font-size: 40px;}
+    .profile-img {width: 140px; height: 140px;}
 }
 </style>
 </head>
@@ -106,11 +140,13 @@ footer p {margin: 0;}
 
 <section class="hero" id="home">
 <div class="container hero-content">
-<h1>Geomatics Engineer & Surveyor</h1>
-<h2>Registered General Engineer (NEC)</h2>
-<p>Transforming spatial data into meaningful insights for sustainable development, infrastructure planning, and natural hazard management.</p>
-<a href="#contact" class="btn">Get In Touch</a>
-<a href="#portfolio" class="btn btn-outline">View My Work</a>
+    <img src="cover.png" alt="Prem Khadka" class="profile-img">
+    
+    <h1>Geomatics Engineer & Surveyor</h1>
+    <h2>Registered General Engineer (NEC)</h2>
+    <p>Transforming spatial data into meaningful insights for sustainable development, infrastructure planning, and natural hazard management.</p>
+    <a href="#contact" class="btn">Get In Touch</a>
+    <a href="#portfolio" class="btn btn-outline-hero">View My Work</a>
 </div>
 </section>
 
@@ -120,7 +156,7 @@ footer p {margin: 0;}
 <p class="subtitle">A blend of academic excellence, public service, and technical proficiency.</p>
 <div class="about-grid">
     <div class="about-text">
-        <p>I am <strong>Prem Khadka</strong>, a professional Geomatics Engineer recently graduated from <strong>Kathmandu University</strong>. I am proudly registered as a General Engineer with the <strong>Nepal Engineering Council (NEC)</strong>.</p>
+        <p>I am <strong>Er.Prem Prakash Khadka</strong>, a professional Geomatics Engineer recently graduated from <strong>Kathmandu University</strong>. I am proudly registered as a General Engineer with the <strong>Nepal Engineering Council (NEC)</strong>.</p>
         <p>Currently, I serve as a <strong>Government Employee at the Survey Office in Parasi</strong>. I specialize in cadastral surveying, topographic mapping, and integrating complex spatial data to solve real-world problems. My academic research heavily focuses on disaster risk reduction and environmental modeling, utilizing advanced GIS techniques to build safer, more resilient communities.</p>
         
         <div class="about-stats">
@@ -186,7 +222,7 @@ footer p {margin: 0;}
         <li>Utilized the <strong>Analytical Hierarchy Process (AHP)</strong> in ArcGIS to assign systematic weights to hazard variables, achieving highly consistent (CR < 0.1) matrices.</li>
         <li>Validated spatial models using ROC-AUC curves, achieving excellent predictive accuracies (>0.85) for all hazard maps.</li>
     </ul>
-    <a href="Multi-Hazard_Final_Year_Report_Updated (3).pdf" target="_blank" class="btn btn-outline">View Research Report</a>
+    <a href="multi.pdf" target="_blank" class="btn btn-outline">View Research Report</a>
 </div>
 
 <div class="project-card">
@@ -204,7 +240,7 @@ footer p {margin: 0;}
         <li>Estimated a total annual mean soil loss of <strong>10.4 million tonnes</strong> across the district.</li>
         <li>Categorized the district into erosion severity classes, identifying critical zones (>80 t/ha/yr) requiring immediate conservation prioritization.</li>
     </ul>
-    <a href="REPORT FINAL.pdf" target="_blank" class="btn btn-outline">View Research Report</a>
+    <a href="rusle.pdf" target="_blank" class="btn btn-outline">View Research Report</a>
 </div>
 
 </div>
@@ -250,22 +286,33 @@ footer p {margin: 0;}
 <section class="contact" id="contact" class="bg-white">
 <div class="container">
 <h2 class="title">Get In Touch</h2>
-<p class="subtitle">Whether you have a question about my research, need consulting on a spatial project, or want to connect professionally, feel free to drop a message.</p>
-<div class="contact-form">
-<form>
-<input type="text" placeholder="Your Name" required>
-<input type="email" placeholder="Your Email Address" required>
-<input type="text" placeholder="Subject">
-<textarea placeholder="Your Message" required></textarea>
-<button type="submit" class="btn" style="width: 100%;">Send Message</button>
-</form>
+<p class="subtitle">Whether you have a question about my research, need consulting on a spatial project, or want to connect professionally, feel free to reach out.</p>
+
+<div class="contact-wrapper">
+    <div class="contact-info">
+        <h3>Contact Information</h3>
+        <p><i class="fas fa-phone-alt"></i> <a href="tel:+9779869718749">+977 9869718749</a></p>
+        <p><i class="fas fa-envelope"></i> <a href="mailto:premkhadka205525@gmail.com">premkhadka205525@gmail.com</a></p>
+        <p><i class="fas fa-map-marker-alt"></i> Survey Office, Parasi, Nepal</p>
+    </div>
+
+    <div class="contact-form">
+        <form>
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email Address" required>
+        <input type="text" placeholder="Subject">
+        <textarea placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+        </form>
+    </div>
 </div>
+
 </div>
 </section>
 
 <footer>
 <div class="container">
-    <p>© 2026 Er. Prem Khadka. All rights reserved.</p>
+    <p>© 2026 Er. Prem Prakash Khadka. All rights reserved.</p>
 </div>
 </footer>
 
