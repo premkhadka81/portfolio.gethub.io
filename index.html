@@ -159,7 +159,7 @@ section { padding: 100px 0; overflow: hidden; }
 .card h3 { margin-bottom: 15px; font-size: 22px; color: var(--primary); }
 .card p { color: var(--gray); font-size: 15px; }
 
-/* --- Experience Timeline Section --- */
+/* --- Timeline Section (Education & Experience) --- */
 .timeline { position: relative; max-width: 800px; margin: 0 auto; padding: 20px 0; }
 .timeline::after { content: ''; position: absolute; width: 4px; background: var(--border); top: 0; bottom: 0; left: 50px; margin-left: -2px; border-radius: 2px; }
 .timeline-item { padding: 20px 30px 40px 100px; position: relative; background: inherit; }
@@ -256,6 +256,7 @@ footer p { margin: 0; font-size: 14px; }
         <ul id="nav-list">
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About</a></li>
+            <li><a href="#education">Education</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#portfolio">Portfolio</a></li>
@@ -280,6 +281,7 @@ footer p { margin: 0; font-size: 14px; }
 
         <a href="#contact" class="btn">Get In Touch</a>
         <a href="#portfolio" class="btn btn-outline-hero">View My Work</a>
+        <a href="cv.pdf" target="_blank" class="btn btn-outline-hero"><i class="fas fa-download"></i> Download CV</a>
     </div>
 </section>
 
@@ -311,7 +313,31 @@ footer p { margin: 0; font-size: 14px; }
     </div>
 </section>
 
-<section id="services">
+<section id="education">
+    <div class="container reveal">
+        <h2 class="title">Education</h2>
+        <p class="subtitle">My academic background in the field of Geomatics Engineering.</p>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">2021 - 2026</span>
+                    <h3>Bachelor's in Geomatics</h3>
+                    <h4>Kathmandu University</h4>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">2014 - 2017</span>
+                    <h3>Diploma in Geomatics Engineering</h3>
+                    <h4>School of Geomatics</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services" class="bg-white">
     <div class="container reveal">
         <h2 class="title">What I Do</h2>
         <p class="subtitle">Comprehensive geospatial services bridging the gap between field data and actionable intelligence.</p>
@@ -335,7 +361,7 @@ footer p { margin: 0; font-size: 14px; }
     </div>
 </section>
 
-<section id="experience" class="bg-white">
+<section id="experience">
     <div class="container reveal">
         <h2 class="title">Experience</h2>
         <p class="subtitle">My professional journey in the field of Geomatics and public service.</p>
@@ -343,25 +369,37 @@ footer p { margin: 0; font-size: 14px; }
         <div class="timeline">
             <div class="timeline-item">
                 <div class="timeline-content">
-                    <span class="timeline-date">Present</span>
-                    <h3>Government Surveyor</h3>
-                    <h4>Survey Office, Parasi | Government of Nepal</h4>
-                    <p>Conducting official cadastral surveys, resolving land boundary disputes, maintaining land records, and utilizing modern GNSS/Total Station equipment for precise spatial data collection.</p>
+                    <span class="timeline-date">2024 - Present</span>
+                    <h3>Surveyor</h3>
+                    <h4>Survey Office Parashi, Nawalparashi (Ba. Su. PA)</h4>
                 </div>
             </div>
             <div class="timeline-item">
                 <div class="timeline-content">
-                    <span class="timeline-date">2023 - 2024</span>
-                    <h3>Geomatics Engineering Researcher</h3>
-                    <h4>Kathmandu University</h4>
-                    <p>Led comprehensive research on multi-hazard risk assessments and soil erosion modeling using RUSLE. Authored technical reports and spatial models integrating socio-economic and environmental datasets.</p>
+                    <span class="timeline-date">2021 - 2024</span>
+                    <h3>Surveyor</h3>
+                    <h4>Survey Office Tulsipur, Dang</h4>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">2018 - 2021</span>
+                    <h3>Surveyor</h3>
+                    <h4>Survey Office Dhading, Dhading</h4>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <span class="timeline-date">2017</span>
+                    <h3>Surveyor</h3>
+                    <h4>Panauti-Melamchi Road Construction</h4>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section id="portfolio">
+<section id="portfolio" class="bg-white">
     <div class="container reveal">
         <h2 class="title">Academic Research & Portfolio</h2>
         <p class="subtitle">Highlighting my major academic projects from Kathmandu University focused on geospatial hazard modeling.</p>
@@ -404,7 +442,7 @@ footer p { margin: 0; font-size: 14px; }
     </div>
 </section>
 
-<section class="skills bg-white" id="skills">
+<section class="skills" id="skills">
     <div class="container reveal">
         <h2 class="title">Technical Skills</h2>
         <p class="subtitle">A snapshot of my proficiency in modern engineering, surveying, and spatial analysis tools.</p>
@@ -441,7 +479,7 @@ footer p { margin: 0; font-size: 14px; }
     </div>
 </section>
 
-<section id="contact">
+<section id="contact" class="bg-white">
     <div class="container reveal">
         <h2 class="title">Get In Touch</h2>
         <p class="subtitle">Whether you have a question about my research, need consulting on a spatial project, or want to connect professionally, feel free to reach out.</p>
