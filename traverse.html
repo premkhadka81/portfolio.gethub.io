@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traverse Computation Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0ede8;--bg2:#e8e4de;--ink:#1a1714;--ink2:#4a4540;--ink3:#8a847e;
+  --ruled:#d4cfc9;--amber:#c8860a;--amber-lt:#f0c050;--amber-dk:#8a5c00;
+  --red:#c0392b;--green:#1a7a4a;--blue:#1a4a8a;
+  --surface:#faf8f5;--border:#ccc8c2;--shadow:0 2px 20px rgba(26,23,20,0.10);
+  --r:8px;--tab-h:52px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Outfit',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 27px,var(--ruled) 28px),
+    linear-gradient(135deg,#f5f1eb 0%,#ede9e2 100%);
+}
+header{
+  background:var(--ink);color:#f0ede8;padding:0 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:64px;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,0.3);
+}
+.logo{display:flex;align-items:center;gap:14px}
+.logo-mark{width:36px;height:36px;background:var(--amber);border-radius:6px;
+  display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:var(--ink)}
+.logo h1{font-size:1.1rem;font-weight:700}
+.logo p{font-size:0.7rem;opacity:0.5;font-family:'DM Mono',monospace;margin-top:1px}
+.header-badge{font-family:'DM Mono',monospace;font-size:0.65rem;
+  background:rgba(200,134,10,0.15);border:1px solid rgba(200,134,10,0.4);
+  color:var(--amber-lt);padding:4px 10px;border-radius:20px}
+.tab-bar{display:flex;background:var(--ink);padding:0 40px;border-bottom:2px solid var(--amber)}
+.tab{padding:0 22px;height:var(--tab-h);display:flex;align-items:center;gap:8px;
+  font-size:0.82rem;font-weight:600;color:rgba(240,237,232,0.45);cursor:pointer;
+  border-bottom:3px solid transparent;margin-bottom:-2px;
+  transition:color 0.2s,border-color 0.2s;user-select:none;white-space:nowrap}
+.tab:hover{color:rgba(240,237,232,0.8)}
+.tab.active{color:#f0ede8;border-bottom-color:var(--amber)}
+main{max-width:1200px;margin:0 auto;padding:32px 24px 80px}
+.page{display:none}
+.page.active{display:block;animation:fadeIn 0.3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:24px 28px;margin-bottom:20px;box-shadow:var(--shadow)}
+.card-head{display:flex;align-items:center;gap:10px;margin-bottom:20px;
+  padding-bottom:14px;border-bottom:1px solid var(--ruled)}
+.card-head h2{font-size:0.95rem;font-weight:700}
+.card-head p{font-size:0.75rem;color:var(--ink3);margin-top:2px}
+.step-num{width:28px;height:28px;min-width:28px;background:var(--amber);color:var(--ink);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:0.78rem;font-family:'DM Mono',monospace;flex-shrink:0}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:0.72rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  color:var(--ink2);font-family:'DM Mono',monospace}
+.hint{font-size:0.68rem;color:var(--ink3)}
+input[type=number],input[type=text]{
+  background:var(--bg2);border:1.5px solid var(--border);border-radius:6px;
+  padding:9px 12px;font-family:'DM Mono',monospace;font-size:0.88rem;color:var(--ink);
+  outline:none;transition:border-color 0.2s,background 0.2s;width:100%}
+input:focus{border-color:var(--amber);background:var(--surface);box-shadow:0 0 0 3px rgba(200,134,10,0.12)}
+/* radio */
+.radio-row{display:flex;gap:10px;flex-wrap:wrap}
+.radio-btn{display:flex;align-items:center;gap:8px;padding:10px 18px;
+  border:1.5px solid var(--border);border-radius:var(--r);cursor:pointer;
+  transition:all 0.18s;flex:1;min-width:160px;user-select:none}
+.radio-btn:hover{border-color:var(--amber);background:rgba(200,134,10,0.04)}
+.radio-btn.sel{border-color:var(--amber);background:rgba(200,134,10,0.08);box-shadow:0 0 0 1px var(--amber)}
+.rdot{width:16px;height:16px;border-radius:50%;border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color 0.18s}
+.radio-btn.sel .rdot{border-color:var(--amber)}
+.rdot::after{content:'';width:7px;height:7px;border-radius:50%;background:var(--amber);
+  transform:scale(0);opacity:0;transition:all 0.18s}
+.radio-btn.sel .rdot::after{transform:scale(1);opacity:1}
+.rl{font-weight:600;font-size:0.88rem}
+.rs{font-size:0.7rem;color:var(--ink3)}
+/* divider */
+.dv{display:flex;align-items:center;gap:12px;margin:18px 0 14px;
+  font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--ink3);font-family:'DM Mono',monospace}
+.dv::before,.dv::after{content:'';flex:1;height:1px;background:var(--ruled)}
+/* buttons */
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;border-radius:var(--r);
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:0.84rem;cursor:pointer;border:none;transition:all 0.18s}
+.btn-g{background:transparent;color:var(--ink2);border:1.5px solid var(--border)}
+.btn-g:hover{border-color:var(--amber);color:var(--amber-dk);background:rgba(200,134,10,0.05)}
+.btn-a{background:var(--amber);color:white;box-shadow:0 3px 12px rgba(200,134,10,0.35)}
+.btn-a:hover{background:var(--amber-dk);transform:translateY(-1px)}
+.btn-a:active{transform:translateY(0)}
+/* input table */
+.tw{overflow-x:auto;border:1.5px solid var(--border);border-radius:var(--r);margin-top:14px}
+table{width:100%;border-collapse:collapse;font-family:'DM Mono',monospace;font-size:0.8rem}
+thead th{background:var(--bg2);padding:10px;text-align:left;border-bottom:1.5px solid var(--border);
+  font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink2);white-space:nowrap}
+thead th:first-child{color:var(--amber-dk);width:48px;text-align:center}
+tbody tr{border-bottom:1px solid var(--ruled);transition:background 0.12s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:rgba(200,134,10,0.03)}
+tbody td{padding:4px 6px;vertical-align:middle}
+tbody td:first-child{text-align:center;color:var(--amber-dk);font-weight:700;font-size:0.72rem;padding:4px 10px}
+tbody td input{background:transparent;border:1px solid transparent;padding:6px 8px;border-radius:5px;
+  width:100%;min-width:90px;font-family:'DM Mono',monospace;font-size:0.8rem;color:var(--ink)}
+tbody td input:focus{background:var(--surface);border-color:var(--amber);box-shadow:0 0 0 2px rgba(200,134,10,0.12)}
+/* alerts — hidden by default, shown by adding .ea or .oa class */
+.alert{padding:10px 14px;border-radius:6px;font-size:0.82rem;margin-top:10px;display:none}
+.alert.ea{background:#fef2f2;border:1px solid #fca5a5;color:#991b1b;display:block}
+.alert.oa{background:#f0fdf4;border:1px solid #86efac;color:#166534;display:block}
+/* results */
+.rs-sec{display:none;margin-top:20px}
+.rs-sec.vis{display:block;animation:fadeIn 0.4s ease}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:16px 18px;border-left:3px solid var(--amber)}
+.kpi-l{font-size:0.65rem;font-family:'DM Mono',monospace;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+.kpi-v{font-size:1.15rem;font-weight:700;font-family:'DM Mono',monospace;color:var(--ink)}
+.kpi-u{font-size:0.68rem;color:var(--ink3);font-family:'DM Mono',monospace;margin-top:2px}
+.kpi.good .kpi-v{color:var(--green)}
+.kpi.bad  .kpi-v{color:var(--red)}
+.kpi.info .kpi-v{color:var(--blue)}
+.res-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);
+  padding:20px 24px;margin-bottom:16px;box-shadow:var(--shadow)}
+.res-t{font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--amber-dk);margin-bottom:14px;font-family:'DM Mono',monospace}
+.rtw{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r)}
+.rtw table thead th{background:var(--ink);color:#f0ede8;font-size:0.6rem;padding:9px 10px}
+.rtw table tbody td{padding:8px 10px;font-family:'DM Mono',monospace;font-size:0.77rem;
+  color:var(--ink);border-bottom:1px solid var(--ruled)}
+.rtw table tbody tr:last-child td{border-bottom:none}
+.rtw table tbody td:first-child{color:var(--amber-dk);font-weight:700}
+.pg-title{margin-bottom:24px;padding:20px 0 14px;border-bottom:2px solid var(--ruled)}
+.pg-title h2{font-size:1.5rem;font-weight:900;letter-spacing:-0.02em}
+.pg-title p{font-size:0.82rem;color:var(--ink3);margin-top:4px}
+.stag{display:inline-block;font-family:'DM Mono',monospace;font-size:0.65rem;font-weight:700;
+  letter-spacing:0.08em;text-transform:uppercase;padding:2px 8px;border-radius:3px;
+  background:rgba(200,134,10,0.15);color:var(--amber-dk);margin-bottom:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;
+  background:rgba(200,134,10,0.1);border:1px solid rgba(200,134,10,0.25);
+  font-size:0.72rem;font-family:'DM Mono',monospace;color:var(--amber-dk);margin:3px}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">T∑</div>
+    <div>
+      <h1>Traverse Computation Suite</h1>
+      <p>Surveying · Bowditch Rule · Trigonometric Levelling</p>
+    </div>
+  </div>
+  <span class="header-badge">v3.0 · Fixed Edition</span>
+</header>
+
+<div class="tab-bar">
+  <div class="tab active" data-tab="closed" onclick="switchTab('closed')">⬡ Closed Loop Traverse</div>
+  <div class="tab" data-tab="link"   onclick="switchTab('link')">⬟ Link Traverse</div>
+  <div class="tab" data-tab="elev"   onclick="switchTab('elev')">▲ Elevation Traverse</div>
+</div>
+
+<main>
+
+<!-- ══════════════════════ PAGE 1 — CLOSED LOOP ══════════════════════ -->
+<div class="page active" id="page-closed">
+  <div class="pg-title">
+    <div class="stag">Closed Loop</div>
+    <h2>Closed Traverse Computation</h2>
+    <p>Bearing formula: bearing_next = bearing_prev − included_angle + 180° (±360° to normalise) · Bowditch correction</p>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="card">
+    <div class="card-head"><div class="step-num">1</div>
+      <div><h2>Angle Type</h2><p>Select which angle was observed at every traverse station</p></div>
+    </div>
+    <div class="radio-row">
+      <div class="radio-btn" id="cl-btn-Int" onclick="clType='Int';clRadio()">
+        <div class="rdot"></div>
+        <div><div class="rl">Interior Angle</div><div class="rs">Measured inside the polygon</div></div>
+      </div>
+      <div class="radio-btn" id="cl-btn-Ext" onclick="clType='Ext';clRadio()">
+        <div class="rdot"></div>
+        <div><div class="rl">Exterior Angle</div><div class="rs">Measured outside the polygon</div></div>
+      </div>
+    </div>
+    <div class="alert" id="cl-type-err"></div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="card">
+    <div class="card-head"><div class="step-num">2</div>
+      <div><h2>Known Coordinates &amp; Reference Angle</h2></div>
+    </div>
+    <div class="dv">Reference Station R₀ — not a traverse station</div>
+    <div class="grid g2">
+      <div class="field"><label>Easting E₀</label><input type="number" id="cl-refE" placeholder="423946.574" step="any"></div>
+      <div class="field"><label>Northing N₀</label><input type="number" id="cl-refN" placeholder="3056908.028" step="any"></div>
+    </div>
+    <div class="dv">1st Traverse Station — known coordinates</div>
+    <div class="grid g2">
+      <div class="field"><label>Easting E₁</label><input type="number" id="cl-st1E" placeholder="423958.865" step="any"></div>
+      <div class="field"><label>Northing N₁</label><input type="number" id="cl-st1N" placeholder="3056782.175" step="any"></div>
+    </div>
+    <div class="dv">Reference angle &amp; optional elevation</div>
+    <div class="grid g2">
+      <div class="field">
+        <label>Angle at Stn1: R₀ → Stn2 (°)</label>
+        <input type="number" id="cl-angRef" placeholder="190.5858" step="any">
+        <span class="hint">Included angle at Stn1 between back-ray to R₀ and forward-ray to Stn2</span>
+      </div>
+      <div class="field">
+        <label>Elevation at Stn1 (m) — optional</label>
+        <input type="number" id="cl-elev1" placeholder="1852.007" step="any">
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="card">
+    <div class="card-head"><div class="step-num">3</div>
+      <div><h2>Traverse Station Data</h2><p>Set count → Generate → Fill angles &amp; distances</p></div>
+    </div>
+    <div class="btn-row">
+      <div class="field" style="flex:0 0 180px">
+        <label>No. of Traverse Stations</label>
+        <input type="number" id="cl-nSt" placeholder="12" min="3" max="50" step="1">
+      </div>
+      <div style="display:flex;align-items:flex-end">
+        <button class="btn btn-g" onclick="clBuildTable()">⊞ Generate Table</button>
+      </div>
+    </div>
+    <div class="alert" id="cl-tbl-err"></div>
+    <div class="tw" id="cl-tw" style="display:none">
+      <table>
+        <thead><tr><th>#</th><th>Station Name</th><th>Observed Angle (°)</th><th>Distance to Next (m)</th></tr></thead>
+        <tbody id="cl-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="btn-row" style="justify-content:flex-end;margin-bottom:8px">
+    <button class="btn btn-g" onclick="clReset()">✕ Reset</button>
+    <button class="btn btn-a" onclick="clCompute()" style="padding:12px 32px;font-size:0.95rem">▶ Compute Traverse</button>
+  </div>
+  <div class="alert" id="cl-err"></div>
+
+  <div class="rs-sec" id="cl-results">
+    <div class="pg-title" style="margin-top:24px"><div class="stag">Results</div><h2>Closed Loop Results</h2></div>
+    <div class="kpi-grid" id="cl-kpi"></div>
+    <div class="res-card">
+      <div class="res-t">Full Traverse Computation Table</div>
+      <div class="rtw"><table>
+        <thead><tr>
+          <th>Station</th><th>Obs Angle°</th><th>Corr / stn</th><th>Corr Angle°</th>
+          <th>Distance (m)</th><th>Bearing°</th>
+          <th>ΔE (calc)</th><th>ΔN (calc)</th>
+          <th>Corr E</th><th>Corr N</th>
+          <th>Easting</th><th>Northing</th>
+        </tr></thead>
+        <tbody id="cl-res"></tbody>
+      </table></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ PAGE 2 — LINK TRAVERSE ══════════════════════ -->
+<div class="page" id="page-link">
+  <div class="pg-title">
+    <div class="stag">Link Traverse</div>
+    <h2>Link Traverse Computation</h2>
+    <p>Known start &amp; end points · Angular misclosure distributed equally · Bowditch linear correction</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="step-num">1</div>
+      <div><h2>Four Known Stations</h2></div>
+    </div>
+    <div class="dv">Rₐ — Reference before traverse</div>
+    <div class="grid g4">
+      <div class="field"><label>Name</label><input type="text" id="lk-s0name" placeholder="2000"></div>
+      <div class="field"><label>Easting</label><input type="number" id="lk-s0E" placeholder="423946.574" step="any"></div>
+      <div class="field"><label>Northing</label><input type="number" id="lk-s0N" placeholder="3056908.028" step="any"></div>
+      <div class="field"><label>Elev (m)</label><input type="number" id="lk-s0H" placeholder="1861" step="any"></div>
+    </div>
+    <div class="dv">Stn1 — First traverse station (known)</div>
+    <div class="grid g4">
+      <div class="field"><label>Name</label><input type="text" id="lk-s1name" placeholder="2001"></div>
+      <div class="field"><label>Easting</label><input type="number" id="lk-s1E" placeholder="423958.865" step="any"></div>
+      <div class="field"><label>Northing</label><input type="number" id="lk-s1N" placeholder="3056782.175" step="any"></div>
+      <div class="field"><label>Elev (m)</label><input type="number" id="lk-s1H" placeholder="1852.007" step="any"></div>
+    </div>
+    <div class="dv">StnL — Last traverse station (known)</div>
+    <div class="grid g4">
+      <div class="field"><label>Name</label><input type="text" id="lk-sLname" placeholder="2011"></div>
+      <div class="field"><label>Easting</label><input type="number" id="lk-sLE" placeholder="424442.405" step="any"></div>
+      <div class="field"><label>Northing</label><input type="number" id="lk-sLN" placeholder="3055081.964" step="any"></div>
+      <div class="field"><label>Elev (m)</label><input type="number" id="lk-sLH" placeholder="1808.142" step="any"></div>
+    </div>
+    <div class="dv">R_b — Reference after traverse</div>
+    <div class="grid g4">
+      <div class="field"><label>Name</label><input type="text" id="lk-sEname" placeholder="2012"></div>
+      <div class="field"><label>Easting</label><input type="number" id="lk-sEE" placeholder="424463.687" step="any"></div>
+      <div class="field"><label>Northing</label><input type="number" id="lk-sEN" placeholder="3055047.824" step="any"></div>
+      <div class="field"><label>Elev (m)</label><input type="number" id="lk-sEH" placeholder="1817.975" step="any"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="step-num">2</div>
+      <div><h2>Station Observations</h2>
+        <p>Enter all stations from Stn1 to StnL inclusive. Angle at each, distance to next (last row distance unused).</p>
+      </div>
+    </div>
+    <div class="btn-row">
+      <div class="field" style="flex:0 0 220px">
+        <label>Total stations (Stn1 … StnL)</label>
+        <input type="number" id="lk-nSt" placeholder="11" min="2" max="60" step="1">
+        <span class="hint">e.g. 11 = stations 2001…2011, making 10 legs</span>
+      </div>
+      <div style="display:flex;align-items:flex-end">
+        <button class="btn btn-g" onclick="lkBuildTable()">⊞ Generate Table</button>
+      </div>
+    </div>
+    <div class="alert" id="lk-tbl-err"></div>
+    <div class="tw" id="lk-tw" style="display:none">
+      <table>
+        <thead><tr><th>#</th><th>Station Name</th><th>Observed Angle (°)</th><th>Distance to Next (m)</th></tr></thead>
+        <tbody id="lk-tbody"></tbody>
+      </table>
+    </div>
+    <p style="font-size:0.7rem;color:var(--ink3);margin-top:8px;font-style:italic">★ = StnL — angle used for angular closure, distance field is ignored.</p>
+  </div>
+
+  <div class="btn-row" style="justify-content:flex-end;margin-bottom:8px">
+    <button class="btn btn-g" onclick="lkReset()">✕ Reset</button>
+    <button class="btn btn-a" onclick="lkCompute()" style="padding:12px 32px;font-size:0.95rem">▶ Compute Link Traverse</button>
+  </div>
+  <div class="alert" id="lk-err"></div>
+
+  <div class="rs-sec" id="lk-results">
+    <div class="pg-title" style="margin-top:24px"><div class="stag">Results</div><h2>Link Traverse Results</h2></div>
+    <div class="kpi-grid" id="lk-kpi"></div>
+    <div class="res-card">
+      <div class="res-t">Station Coordinates Table</div>
+      <div class="rtw"><table>
+        <thead><tr>
+          <th>Station</th><th>Obs Angle°</th><th>Cum Bear Corr</th><th>Corr Bearing°</th>
+          <th>Distance (m)</th>
+          <th>ΔE calc</th><th>ΔE corr</th><th>ΔE adj</th>
+          <th>ΔN calc</th><th>ΔN corr</th><th>ΔN adj</th>
+          <th>Easting</th><th>Northing</th>
+        </tr></thead>
+        <tbody id="lk-res"></tbody>
+      </table></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ PAGE 3 — ELEVATION ══════════════════════ -->
+<div class="page" id="page-elev">
+  <div class="pg-title">
+    <div class="stag">Elevation</div>
+    <h2>Elevation Traverse — Trigonometric Levelling</h2>
+    <p>DEL H = HD × cot(Z) + HI − HT &nbsp;·&nbsp; Average fwd &amp; bck &nbsp;·&nbsp; Bowditch vertical correction &nbsp;·&nbsp; Reduced Levels</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="step-num">1</div>
+      <div><h2>Survey Type &amp; Known Elevations</h2></div>
+    </div>
+    <div class="radio-row" style="margin-bottom:16px">
+      <div class="radio-btn sel" id="elv-closed-btn" onclick="elvSetType('closed')">
+        <div class="rdot"></div>
+        <div><div class="rl">Closed Loop</div><div class="rs">Returns to start; misclosure ÷ n legs</div></div>
+      </div>
+      <div class="radio-btn" id="elv-link-btn" onclick="elvSetType('link')">
+        <div class="rdot"></div>
+        <div><div class="rl">Link Traverse</div><div class="rs">Known start &amp; end elevation</div></div>
+      </div>
+    </div>
+    <div class="grid g3">
+      <div class="field"><label>Start Station Name</label><input type="text" id="elv-st0name" placeholder="2001"></div>
+      <div class="field"><label>Start Elevation (m)</label><input type="number" id="elv-h0" placeholder="1852.007" step="any"></div>
+      <div class="field" id="elv-endH-field" style="display:none">
+        <label>End Station Elevation (m)</label>
+        <input type="number" id="elv-hEnd" placeholder="1808.142" step="any">
+        <span class="hint">Known RL at the final station</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div class="step-num">2</div>
+      <div><h2>Zenithal Angle Observations</h2>
+        <p>Both forward (Face Left) and back (Face Right) for every leg</p>
+      </div>
+    </div>
+    <div class="btn-row">
+      <div class="field" style="flex:0 0 200px">
+        <label>No. of Legs</label>
+        <input type="number" id="elv-nLegs" placeholder="10" min="1" max="60" step="1">
+      </div>
+      <div style="display:flex;align-items:flex-end">
+        <button class="btn btn-g" onclick="elvBuildTable()">⊞ Generate Table</button>
+      </div>
+    </div>
+    <div class="alert" id="elv-tbl-err"></div>
+    <div class="tw" id="elv-tw" style="display:none;margin-top:14px">
+      <table id="elv-tbl">
+        <thead>
+          <tr>
+            <th rowspan="2">#</th>
+            <th colspan="6" style="text-align:center;border-bottom:1px solid #888;color:#d4a040">FORWARD — Face Left</th>
+            <th colspan="6" style="text-align:center;border-bottom:1px solid #888;color:#60b080">BACK — Face Right</th>
+          </tr>
+          <tr>
+            <th>From</th><th>To</th><th>Zen Angle°</th><th>HI (m)</th><th>HT (m)</th><th>HD (m)</th>
+            <th>From</th><th>To</th><th>Zen Angle°</th><th>HI (m)</th><th>HT (m)</th><th>HD (m)</th>
+          </tr>
+        </thead>
+        <tbody id="elv-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="btn-row" style="justify-content:flex-end;margin-bottom:8px">
+    <button class="btn btn-g" onclick="elvReset()">✕ Reset</button>
+    <button class="btn btn-a" onclick="elvCompute()" style="padding:12px 32px;font-size:0.95rem">▶ Compute Elevations</button>
+  </div>
+  <div class="alert" id="elv-err"></div>
+
+  <div class="rs-sec" id="elv-results">
+    <div class="pg-title" style="margin-top:24px"><div class="stag">Results</div><h2>Elevation Results</h2></div>
+    <div class="kpi-grid" id="elv-kpi"></div>
+    <div class="res-card">
+      <div class="res-t">Elevation Computation Table</div>
+      <div class="rtw"><table>
+        <thead><tr>
+          <th>Leg</th><th>From</th><th>To</th>
+          <th>DEL H₁ (Fwd)</th><th>DEL H₂ (Bck→dir)</th><th>Avg |DEL H|</th>
+          <th>DEL H (trav dir)</th><th>Correction</th><th>Corrected DEL H</th>
+          <th>RL To-Station (m)</th>
+        </tr></thead>
+        <tbody id="elv-res"></tbody>
+      </table></div>
+    </div>
+    <div class="res-card" id="elv-scard" style="display:none">
+      <div class="res-t">Station Reduced Levels</div>
+      <div id="elv-slist" style="display:flex;flex-wrap:wrap;gap:6px;padding:4px 0"></div>
+    </div>
+  </div>
+</div>
+
+</main>
+<script>
+'use strict';
+
+// ─── helpers ───────────────────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const f = (v,d=4) => (typeof v==='number'&&isFinite(v)) ? v.toFixed(d) : '—';
+
+function switchTab(name){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===name));
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+name));
+}
+
+function inp(type,ph,id){
+  return `<input type="${type}" id="${id}" placeholder="${ph}" step="any">`;
+}
+
+/** show/hide alert divs safely — never crashes on null */
+function showErr(id,msg){
+  const el=$(id); if(!el) return;
+  el.textContent=msg; el.className='alert ea';
+}
+function hideA(id){
+  const el=$(id); if(!el) return;
+  el.textContent=''; el.className='alert';
+}
+
+function buildKPI(id,items){
+  const c=$(id); if(!c) return;
+  c.innerHTML=items.map(({label,val,unit,cls})=>
+    `<div class="kpi ${cls||''}">
+       <div class="kpi-l">${label}</div>
+       <div class="kpi-v">${val}</div>
+       ${unit?`<div class="kpi-u">${unit}</div>`:''}
+     </div>`).join('');
+}
+
+// ─── BEARING MATH ──────────────────────────────────────────────────────────
+
+/** Normalise to [0, 360) */
+function n360(b){
+  b=b%360;
+  if(b<0) b+=360;
+  return b;
+}
+
+/** WCB from (e0,n0) to (e1,n1) using atan2 */
+function wcb(e0,n0,e1,n1){
+  return n360(Math.atan2(e1-e0, n1-n0)*180/Math.PI);
+}
+
+/**
+ * CORE BEARING FORMULA (per user spec):
+ *   bearing_next = bearing_prev − included_angle + 180
+ *   normalise with ±360 until result is in [0, 360)
+ *
+ * Works for both interior and exterior observed angles because the
+ * "included angle" is the positive horizontal angle measured at each station.
+ */
+function nextBear(prev, angle){
+  let b = prev - angle + 180;
+  while(b <   0) b += 360;
+  while(b >= 360) b -= 360;
+  return b;
+}
+
+/** Bowditch (compass) rule corrections */
+function bowditch(dists, errDE, errDN){
+  const peri=dists.reduce((a,b)=>a+b,0);
+  return {
+    peri,
+    cE: dists.map(d=>-(errDE*d)/peri),
+    cN: dists.map(d=>-(errDN*d)/peri)
+  };
+}
+
+// ─── PAGE 1 — CLOSED LOOP ─────────────────────────────────────────────────
+let clType='';
+
+function clRadio(){
+  ['Int','Ext'].forEach(x=>{
+    const b=$('cl-btn-'+x);
+    if(b) b.classList.toggle('sel',x===clType);
+  });
+  hideA('cl-type-err');
+}
+
+function clBuildTable(){
+  const n=parseInt($('cl-nSt').value);
+  if(!n||n<3||n>50){showErr('cl-tbl-err','Enter station count 3–50.');return}
+  hideA('cl-tbl-err');
+  const tb=$('cl-tbody'); tb.innerHTML='';
+  for(let i=0;i<n;i++){
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${i+1}</td>
+      <td>${inp('text',`ST${1000+i}`,`cl-name${i}`)}</td>
+      <td>${inp('number','0.000',`cl-ang${i}`)}</td>
+      <td>${inp('number','0.000',`cl-dist${i}`)}</td>`;
+    tb.appendChild(tr);
+  }
+  $('cl-tw').style.display='block';
+}
+
+function clReset(){
+  clType='';
+  ['Int','Ext'].forEach(x=>{const b=$('cl-btn-'+x);if(b)b.classList.remove('sel')});
+  ['cl-refE','cl-refN','cl-st1E','cl-st1N','cl-angRef','cl-elev1','cl-nSt']
+    .forEach(id=>{const e=$(id);if(e)e.value=''});
+  const tb=$('cl-tbody');if(tb)tb.innerHTML='';
+  const tw=$('cl-tw');if(tw)tw.style.display='none';
+  const r=$('cl-results');if(r)r.classList.remove('vis');
+  ['cl-type-err','cl-tbl-err','cl-err'].forEach(hideA);
+}
+
+function clCompute(){
+  if(!clType){showErr('cl-type-err','Select Interior or Exterior angle type.');return}
+  hideA('cl-type-err');
+
+  const refE =parseFloat($('cl-refE').value);
+  const refN =parseFloat($('cl-refN').value);
+  const st1E =parseFloat($('cl-st1E').value);
+  const st1N =parseFloat($('cl-st1N').value);
+  const angRef=parseFloat($('cl-angRef').value);
+  if([refE,refN,st1E,st1N,angRef].some(isNaN)){
+    showErr('cl-err','Fill all coordinate and reference-angle fields.');return;
+  }
+
+  const n=parseInt($('cl-nSt').value);
+  if(!n||n<3){showErr('cl-err','Generate station table first (min 3).');return}
+
+  const names=[],obsA=[],dists=[];
+  for(let i=0;i<n;i++){
+    const ne=$(`cl-name${i}`),ae=$(`cl-ang${i}`),de=$(`cl-dist${i}`);
+    if(!ne||!ae||!de){showErr('cl-err',`Row ${i+1}: re-generate the table.`);return}
+    const a=parseFloat(ae.value),d=parseFloat(de.value);
+    if(isNaN(a)||isNaN(d)){showErr('cl-err',`Row ${i+1}: angle & distance required.`);return}
+    names.push(ne.value||`S${i+1}`); obsA.push(a); dists.push(d);
+  }
+  hideA('cl-err');
+
+  // 1. Angle correction
+  const theoSum = clType==='Int' ? (2*n-4)*90 : (2*n+4)*90;
+  const realSum = obsA.reduce((a,b)=>a+b,0);
+  const angErr  = realSum-theoSum;
+  const angCorr = -angErr/n;
+  const angles  = obsA.map(a=>a+angCorr);
+
+  // 2. Initial bearing of 1st leg
+  //    WCB from R0 to Stn1, then back-bearing = +180
+  //    At Stn1 the included angle (angRef) relates R0 to Stn2
+  const wcbR0S1  = wcb(refE,refN,st1E,st1N);
+  const backR0S1 = n360(wcbR0S1+180);
+  // bearing of 1st leg (Stn1→Stn2) using the user formula
+  const b0 = nextBear(backR0S1, angRef);
+
+  // 3. Propagate bearings
+  const bearings=new Array(n).fill(0);
+  bearings[0]=b0;
+  for(let i=0;i<n-1;i++) bearings[i+1]=nextBear(bearings[i],angles[i+1]);
+
+  // 4. Departures & latitudes
+  const dE=dists.map((d,i)=>d*Math.sin(bearings[i]*Math.PI/180));
+  const dN=dists.map((d,i)=>d*Math.cos(bearings[i]*Math.PI/180));
+  const sumDE=dE.reduce((a,b)=>a+b,0);
+  const sumDN=dN.reduce((a,b)=>a+b,0);
+
+  // 5. Bowditch
+  const {peri,cE,cN}=bowditch(dists,sumDE,sumDN);
+  const adjDE=dE.map((v,i)=>v+cE[i]);
+  const adjDN=dN.map((v,i)=>v+cN[i]);
+
+  // 6. Coordinates
+  const E=[st1E],N=[st1N];
+  for(let i=0;i<n-1;i++){E.push(E[i]+adjDE[i]);N.push(N[i]+adjDN[i]);}
+
+  const clErr=Math.sqrt(sumDE**2+sumDN**2);
+  const acc  =peri/clErr;
+
+  buildKPI('cl-kpi',[
+    {label:'Type',          val:clType==='Int'?'Interior':'Exterior',cls:'info'},
+    {label:'Stations',      val:n,                                    cls:'info'},
+    {label:'Angle Corr',    val:f(angCorr,5)+'° / stn',unit:`Total err: ${f(angErr,4)}°`},
+    {label:'Perimeter',     val:f(peri,3)+' m'},
+    {label:'Closing Error', val:f(clErr,4)+' m',       cls:clErr<0.5?'good':'bad'},
+    {label:'Linear Accuracy',val:'1 : '+Math.round(acc).toLocaleString(),cls:acc>1000?'good':'bad'},
+    {label:'ΔE Misclosure', val:f(sumDE,4)+' m'},
+    {label:'ΔN Misclosure', val:f(sumDN,4)+' m'},
+  ]);
+
+  const tb=$('cl-res'); tb.innerHTML='';
+  for(let i=0;i<n;i++){
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td>${names[i]}</td><td>${f(obsA[i])}</td><td>${f(angCorr,5)}</td><td>${f(angles[i])}</td>
+      <td>${f(dists[i],3)}</td><td>${f(bearings[i])}</td>
+      <td>${f(dE[i])}</td><td>${f(dN[i])}</td>
+      <td>${f(cE[i])}</td><td>${f(cN[i])}</td>
+      <td style="color:var(--blue);font-weight:600">${f(E[i],3)}</td>
+      <td style="color:var(--blue);font-weight:600">${f(N[i],3)}</td>`;
+    tb.appendChild(tr);
+  }
+  $('cl-results').classList.add('vis');
+  setTimeout(()=>$('cl-results').scrollIntoView({behavior:'smooth',block:'start'}),80);
+}
+
+// ─── PAGE 2 — LINK TRAVERSE ───────────────────────────────────────────────
+function lkBuildTable(){
+  const n=parseInt($('lk-nSt').value);
+  if(!n||n<2||n>60){showErr('lk-tbl-err','Enter station count 2–60 (Stn1 to StnL inclusive).');return}
+  hideA('lk-tbl-err');
+  const tb=$('lk-tbody'); tb.innerHTML='';
+  for(let i=0;i<n;i++){
+    const last=i===n-1;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${i+1}${last?' ★':''}</td>
+      <td>${inp('text',last?'StnL':'Stn'+(i+1),`lk-name${i}`)}</td>
+      <td>${inp('number','0.000',`lk-ang${i}`)}</td>
+      <td>${last?'<span style="padding:6px 8px;display:block;font-size:0.72rem;color:var(--ink3)">— not used</span>'
+               :inp('number','0.000',`lk-dist${i}`)}</td>`;
+    tb.appendChild(tr);
+  }
+  $('lk-tw').style.display='block';
+}
+
+function lkReset(){
+  ['lk-s0name','lk-s0E','lk-s0N','lk-s0H',
+   'lk-s1name','lk-s1E','lk-s1N','lk-s1H',
+   'lk-sLname','lk-sLE','lk-sLN','lk-sLH',
+   'lk-sEname','lk-sEE','lk-sEN','lk-sEH','lk-nSt']
+   .forEach(id=>{const e=$(id);if(e)e.value=''});
+  const tb=$('lk-tbody');if(tb)tb.innerHTML='';
+  const tw=$('lk-tw');if(tw)tw.style.display='none';
+  const r=$('lk-results');if(r)r.classList.remove('vis');
+  ['lk-tbl-err','lk-err'].forEach(hideA);
+}
+
+function lkCompute(){
+  const s0E=parseFloat($('lk-s0E').value),s0N=parseFloat($('lk-s0N').value);
+  const s1E=parseFloat($('lk-s1E').value),s1N=parseFloat($('lk-s1N').value);
+  const sLE=parseFloat($('lk-sLE').value),sLN=parseFloat($('lk-sLN').value);
+  const sEE=parseFloat($('lk-sEE').value),sEN=parseFloat($('lk-sEN').value);
+  if([s0E,s0N,s1E,s1N,sLE,sLN,sEE,sEN].some(isNaN)){
+    showErr('lk-err','Fill all four known station coordinates.');return;
+  }
+  const n=parseInt($('lk-nSt').value);
+  if(!n||n<2){showErr('lk-err','Generate station table first.');return}
+
+  const names=[],obsA=[],dists=[];
+  for(let i=0;i<n;i++){
+    const ne=$(`lk-name${i}`),ae=$(`lk-ang${i}`);
+    if(!ne||!ae){showErr('lk-err',`Row ${i+1}: re-generate table.`);return}
+    const a=parseFloat(ae.value);
+    if(isNaN(a)){showErr('lk-err',`Row ${i+1}: angle required.`);return}
+    names.push(ne.value||`S${i+1}`); obsA.push(a);
+    if(i<n-1){
+      const de=$(`lk-dist${i}`);
+      if(!de){showErr('lk-err',`Row ${i+1}: re-generate table.`);return}
+      const d=parseFloat(de.value);
+      if(isNaN(d)){showErr('lk-err',`Row ${i+1}: distance required.`);return}
+      dists.push(d);
+    }
+  }
+  hideA('lk-err');
+
+  const nLegs=n-1;
+
+  // Fixed-line bearings
+  const bearRa=wcb(s0E,s0N,s1E,s1N);   // Ra → Stn1
+  const bearRb=wcb(sLE,sLN,sEE,sEN);   // StnL → Rb
+
+  // Theoretical sum of included angles (link traverse standard formula)
+  // Sum_theo = (n−1)×180 + bearRb − bearRa  [normalised to positive realistic range]
+  let theoSum=(n-1)*180+(bearRb-bearRa);
+  // Adjust so theoSum sits near the actual sum of angles
+  const realSum=obsA.reduce((a,b)=>a+b,0);
+  while(theoSum<realSum-n*180) theoSum+=360;
+  while(theoSum>realSum+n*180) theoSum-=360;
+
+  const angErr =realSum-theoSum;
+  const angCorr=-angErr/n;
+  const corrA  =obsA.map(a=>a+angCorr);
+
+  // Bearings — apply user formula to each leg
+  const bearings=new Array(n).fill(0);
+  bearings[0]=bearRa;
+  for(let i=0;i<nLegs;i++) bearings[i+1]=nextBear(bearings[i],corrA[i+1]);
+
+  // Departures & latitudes
+  const dE=dists.map((d,i)=>d*Math.sin(bearings[i]*Math.PI/180));
+  const dN=dists.map((d,i)=>d*Math.cos(bearings[i]*Math.PI/180));
+  const sumDE=dE.reduce((a,b)=>a+b,0);
+  const sumDN=dN.reduce((a,b)=>a+b,0);
+  const tDE=sLE-s1E, tDN=sLN-s1N;
+  const errDE=sumDE-tDE, errDN=sumDN-tDN;
+
+  // Bowditch
+  const {peri,cE,cN}=bowditch(dists,errDE,errDN);
+  const adjDE=dE.map((v,i)=>v+cE[i]);
+  const adjDN=dN.map((v,i)=>v+cN[i]);
+
+  // Coordinates
+  const E=[s1E],N=[s1N];
+  for(let i=0;i<nLegs-1;i++){E.push(E[i]+adjDE[i]);N.push(N[i]+adjDN[i]);}
+  E.push(sLE); N.push(sLN);
+
+  const clErr=Math.sqrt(errDE**2+errDN**2);
+  const acc  =peri/clErr;
+
+  buildKPI('lk-kpi',[
+    {label:'Stations',       val:n,                               cls:'info'},
+    {label:'Bearing Ra→S1', val:f(bearRa,4)+'°'},
+    {label:'Bearing SL→Rb', val:f(bearRb,4)+'°'},
+    {label:'Angular Error',  val:f(angErr,4)+'°'},
+    {label:'Angle Corr/Stn',val:f(angCorr,5)+'°'},
+    {label:'Perimeter',      val:f(peri,2)+' m'},
+    {label:'ΔE Misclosure',  val:f(errDE,4)+' m',cls:Math.abs(errDE)<0.5?'good':'bad'},
+    {label:'ΔN Misclosure',  val:f(errDN,4)+' m',cls:Math.abs(errDN)<0.5?'good':'bad'},
+    {label:'Closing Error',  val:f(clErr,4)+' m', cls:clErr<0.5?'good':'bad'},
+    {label:'Linear Accuracy',val:'1 : '+Math.round(acc).toLocaleString(),cls:acc>1000?'good':'bad'},
+  ]);
+
+  const tb=$('lk-res'); tb.innerHTML='';
+  for(let i=0;i<n;i++){
+    const cumCorr=angCorr*(i+1);
+    const tr=document.createElement('tr');
+    if(i<nLegs){
+      tr.innerHTML=`
+        <td>${names[i]}</td><td>${f(obsA[i])}</td><td>${f(cumCorr,5)}</td><td>${f(bearings[i])}</td>
+        <td>${f(dists[i],3)}</td>
+        <td>${f(dE[i])}</td><td>${f(cE[i])}</td><td>${f(adjDE[i])}</td>
+        <td>${f(dN[i])}</td><td>${f(cN[i])}</td><td>${f(adjDN[i])}</td>
+        <td style="color:var(--blue);font-weight:600">${f(E[i],3)}</td>
+        <td style="color:var(--blue);font-weight:600">${f(N[i],3)}</td>`;
+    } else {
+      tr.innerHTML=`
+        <td style="color:var(--green);font-weight:700">${names[i]} ★</td>
+        <td>${f(obsA[i])}</td><td>${f(cumCorr,5)}</td><td>${f(bearings[i])}</td>
+        <td colspan="7" style="color:var(--ink3);font-style:italic">— last known station —</td>
+        <td style="color:var(--green);font-weight:700">${f(sLE,3)}</td>
+        <td style="color:var(--green);font-weight:700">${f(sLN,3)}</td>`;
+    }
+    tb.appendChild(tr);
+  }
+  $('lk-results').classList.add('vis');
+  setTimeout(()=>$('lk-results').scrollIntoView({behavior:'smooth',block:'start'}),80);
+}
+
+// ─── PAGE 3 — ELEVATION ───────────────────────────────────────────────────
+let elvType='closed';
+
+function elvSetType(t){
+  elvType=t;
+  const cb=$('elv-closed-btn'), lb=$('elv-link-btn'), ef=$('elv-endH-field');
+  if(cb) cb.classList.toggle('sel',t==='closed');
+  if(lb) lb.classList.toggle('sel',t==='link');
+  if(ef) ef.style.display=(t==='link')?'block':'none';
+}
+
+function elvBuildTable(){
+  const n=parseInt($('elv-nLegs').value);
+  if(!n||n<1||n>60){showErr('elv-tbl-err','Enter leg count 1–60.');return}
+  hideA('elv-tbl-err');
+  const tb=$('elv-tbody'); tb.innerHTML='';
+  for(let i=0;i<n;i++){
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${i+1}</td>
+      <td>${inp('text',  `St${i+1}`, `elv-fFrom${i}`)}</td>
+      <td>${inp('text',  `St${i+2}`, `elv-fTo${i}`)}</td>
+      <td>${inp('number','104.5000', `elv-fZen${i}`)}</td>
+      <td>${inp('number','1.38',     `elv-fHI${i}`)}</td>
+      <td>${inp('number','2.00',     `elv-fHT${i}`)}</td>
+      <td>${inp('number','236.47',   `elv-fHD${i}`)}</td>
+      <td>${inp('text',  `St${i+2}`, `elv-bFrom${i}`)}</td>
+      <td>${inp('text',  `St${i+1}`, `elv-bTo${i}`)}</td>
+      <td>${inp('number','95.2120',  `elv-bZen${i}`)}</td>
+      <td>${inp('number','1.38',     `elv-bHI${i}`)}</td>
+      <td>${inp('number','2.00',     `elv-bHT${i}`)}</td>
+      <td>${inp('number','236.47',   `elv-bHD${i}`)}</td>`;
+    tb.appendChild(tr);
+  }
+  $('elv-tw').style.display='block';
+}
+
+function elvReset(){
+  ['elv-st0name','elv-h0','elv-hEnd','elv-nLegs'].forEach(id=>{const e=$(id);if(e)e.value=''});
+  const tb=$('elv-tbody');if(tb)tb.innerHTML='';
+  const tw=$('elv-tw');if(tw)tw.style.display='none';
+  const r=$('elv-results');if(r)r.classList.remove('vis');
+  const sc=$('elv-scard');if(sc)sc.style.display='none';
+  ['elv-tbl-err','elv-err'].forEach(hideA);
+}
+
+/**
+ * Trigonometric DEL H
+ * VD = HD × cos(Z)/sin(Z) = HD × cot(Z)
+ * DEL H = VD + HI − HT
+ * Z < 90° → uphill (positive VD); Z > 90° → downhill (negative VD)
+ */
+function calcDelH(zenDeg,HI,HT,HD){
+  const z=zenDeg*Math.PI/180;
+  return HD*Math.cos(z)/Math.sin(z)+HI-HT;
+}
+
+function elvCompute(){
+  const h0=parseFloat($('elv-h0').value);
+  if(isNaN(h0)){showErr('elv-err','Enter the start station elevation.');return}
+  const n=parseInt($('elv-nLegs').value);
+  if(!n||n<1){showErr('elv-err','Generate the leg table first.');return}
+
+  let hEnd=null;
+  if(elvType==='link'){
+    hEnd=parseFloat($('elv-hEnd').value);
+    if(isNaN(hEnd)){showErr('elv-err','Enter end station elevation (link mode).');return}
+  }
+
+  const legs=[];
+  for(let i=0;i<n;i++){
+    const fZe=$(`elv-fZen${i}`);
+    if(!fZe){showErr('elv-err',`Row ${i+1}: re-generate table.`);return}
+    const fZen=parseFloat(fZe.value);
+    const fHI =parseFloat($(`elv-fHI${i}`).value);
+    const fHT =parseFloat($(`elv-fHT${i}`).value);
+    const fHD =parseFloat($(`elv-fHD${i}`).value);
+    const bZen=parseFloat($(`elv-bZen${i}`).value);
+    const bHI =parseFloat($(`elv-bHI${i}`).value);
+    const bHT =parseFloat($(`elv-bHT${i}`).value);
+    const bHD =parseFloat($(`elv-bHD${i}`).value);
+    if([fZen,fHI,fHT,fHD,bZen,bHI,bHT,bHD].some(isNaN)){
+      showErr('elv-err',`Row ${i+1}: all 8 observation fields required.`);return;
+    }
+    const fFrom=$(`elv-fFrom${i}`)?.value||`St${i+1}`;
+    const fTo  =$(`elv-fTo${i}`)?.value  ||`St${i+2}`;
+    legs.push({fFrom,fTo,fZen,fHI,fHT,fHD,bZen,bHI,bHT,bHD});
+  }
+  hideA('elv-err');
+
+  const delH1=[],delH2=[],avgA=[],trvD=[];
+  for(let i=0;i<n;i++){
+    const l=legs[i];
+    const h1=calcDelH(l.fZen,l.fHI,l.fHT,l.fHD);     // forward: From→To
+    const h2raw=calcDelH(l.bZen,l.bHI,l.bHT,l.bHD);  // back: To→From (raw)
+    const h2=-h2raw;                                    // reversed to traverse direction
+    delH1.push(h1); delH2.push(h2);
+    const avg=(Math.abs(h1)+Math.abs(h2))/2;
+    avgA.push(avg);
+    trvD.push(h1>=0?avg:-avg);                         // sign follows forward
+  }
+
+  const sumTrv=trvD.reduce((a,b)=>a+b,0);
+  let misc,corr;
+  if(elvType==='closed'){
+    misc=sumTrv; corr=-misc/n;
+  } else {
+    misc=sumTrv-(hEnd-h0); corr=-misc/n;
+  }
+  const corrected=trvD.map(v=>v+corr);
+  const RL=[h0];
+  for(let i=0;i<n;i++) RL.push(RL[i]+corrected[i]);
+
+  buildKPI('elv-kpi',[
+    {label:'Survey Type',      val:elvType==='closed'?'Closed Loop':'Link',        cls:'info'},
+    {label:'Legs',             val:n,                                               cls:'info'},
+    {label:'Start RL',         val:f(h0,3)+' m'},
+    elvType==='link'
+      ?{label:'End RL (known)', val:f(hEnd,3)+' m'}
+      :{label:'Final RL (calc)',val:f(RL[n],3)+' m'},
+    {label:'Σ DEL H (trav)',   val:f(sumTrv,4)+' m'},
+    {label:'Misclosure',       val:f(misc,4)+' m',cls:Math.abs(misc)<0.1?'good':'bad'},
+    {label:'Correction/Leg',   val:f(corr,4)+' m'},
+  ]);
+
+  const tb=$('elv-res'); tb.innerHTML='';
+  for(let i=0;i<n;i++){
+    const l=legs[i];
+    const tr=document.createElement('tr');
+    tr.innerHTML=`
+      <td>${i+1}</td><td>${l.fFrom}</td><td>${l.fTo}</td>
+      <td>${f(delH1[i])}</td><td>${f(delH2[i])}</td><td>${f(avgA[i])}</td>
+      <td>${f(trvD[i])}</td><td>${f(corr)}</td><td>${f(corrected[i])}</td>
+      <td style="color:var(--blue);font-weight:700">${f(RL[i+1],3)}</td>`;
+    tb.appendChild(tr);
+  }
+
+  const sc=$('elv-scard');if(sc)sc.style.display='block';
+  const sl=$('elv-slist');
+  if(sl){
+    sl.innerHTML='';
+    const stNames=[legs[0].fFrom,...legs.map(l=>l.fTo)];
+    RL.forEach((rl,i)=>{
+      const c=document.createElement('div');
+      c.className='chip';
+      c.innerHTML=`<strong>${stNames[i]||'S'+(i+1)}</strong>&nbsp;${f(rl,3)} m`;
+      sl.appendChild(c);
+    });
+  }
+
+  $('elv-results').classList.add('vis');
+  setTimeout(()=>$('elv-results').scrollIntoView({behavior:'smooth',block:'start'}),80);
+}
+
+// ─── INIT (safe — runs after full DOM parse) ──────────────────────────────
+document.addEventListener('DOMContentLoaded',()=>{
+  // elevation radio default — safe because DOM is now ready
+  elvSetType('closed');
+});
+</script>
+</body>
+</html>
